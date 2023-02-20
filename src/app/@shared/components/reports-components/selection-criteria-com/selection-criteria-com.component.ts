@@ -335,8 +335,6 @@ export class SelectionCriteriaComComponent implements OnInit {
           "Value": data.High[0]
         })
     })
-  
-
     // ReportId: number, TechnicalName: string, Value: any
     this.reportService.PostSelectionHistory(this.historyFormatedData).subscribe((data: any) => {
       this.reportService.reportData=data;
