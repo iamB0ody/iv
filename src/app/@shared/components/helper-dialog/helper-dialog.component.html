@@ -1,0 +1,52 @@
+<p-dialog [closable]="false" [(visible)]="HelperDetail.DialogModule" [modal]="true" [style]="{width: '50vw'}"
+    [maximizable]="true" [baseZIndex]="10000" [draggable]="true" [resizable]="true">
+    <!-- digram header  -->
+    <p-header>{{HelperDetail?.fieldName}}</p-header>
+    <!--/ digram header  -->
+
+    <!-- digram Content -->
+    <p-table [loading]="loading" [totalRecords]="500" class="tableClass" #ٌRepoResult [value]="HelperTableContent "
+        dataKey="id" id="htmlData" [rows]="1000" [showCurrentPageReport]="false" styleClass="p-datatable-customers"
+        [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [globalFilterFields]="['TechName']">
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 10.5rem" *ngFor="let item of tableHeader ">
+                    <ng-container *ngIf="fillter != item ">
+                        <a class="nav-link d-inline-flex tableHeader p-0 m-0" >
+                            <span (click)=" fillter = item ">{{item}}</span>
+                            <i (click)="fillter = item" class="fa-solid fa-search m-1 "></i>
+                        </a>
+                    </ng-container>
+                    <ng-container *ngIf="fillter == item">
+                        <button (click)="fillter=''" class="btn HelperCloseSearch btn-danger " label="Close">
+                            x
+                        </button>
+                        <p-columnFilter type="text" [placeholder]="item" field="{{item}}"></p-columnFilter>
+
+                    </ng-container>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-customer>
+            <tr>
+                <td *ngFor="let HeaderItem of tableHeader" (click)="selectVal(customer[HeaderItem])">
+                    {{customer[HeaderItem] }}
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="5">No data found.</td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <!--/ digram Content -->
+    <!-- close -->
+    <ng-template pTemplate="footer">
+        <button icon="pi pi-times" class="btn btn-danger mt-3" (click)="HelperDetail.DialogModule = false"
+            label="Close">Close</button>
+    </ng-template>
+    <!--/ close -->
+
+</p-dialog>

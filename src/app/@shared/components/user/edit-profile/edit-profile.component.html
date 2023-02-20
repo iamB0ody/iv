@@ -1,0 +1,188 @@
+<div class="container-fluid" *ngIf="userData">
+    <p-toast></p-toast>
+    <div class="profileDiv">
+        <div class="row ">
+            <div class="col-xs-12 col-sm-10 col-md-10 col-lg-12">
+                <div class="userImageDiv">
+                    <div class="text-center"> <img *ngIf="userData?.photo" class="userImage"
+                            src="{{'data:image/png;base64,'+userData?.photo}}">
+                        <img *ngIf="!userData?.photo" class="userImage" src="./assets/imgs/defaultUser.png">
+
+                    </div>
+
+
+                    <div class="text-center">
+                        <b class="mt-2">{{userData?.firstName +' '+ userData?.lastName}}</b>
+                        <p>{{userData?.email}}</p>
+                        <div>
+                            <input style="height:30px" class="mt-1 ml-2" type="file" size="30" multiple="false"
+                                accept="image" (change)="fileSelectionChanged($event)">
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-content userDataForm">
+                    <div class="tab-pane active" id="basic">
+                        <form [formGroup]="updateForm" class="form-horizontal" role="form">
+                            <div class="form-group">
+
+                                <div class="col-lg-12">
+                                    <div>
+                                        <label for="inputuserName" class="form-label">User Name :
+                                        </label>
+                                    </div>
+                                    <input type="text" class="form-control" id="inputuserName"
+                                        formControlName="UserName" readonly>
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <div>
+                                        <label for="inputuserName" class="form-label">Email :
+                                        </label>
+                                    </div>
+                                    <input type="email" class="form-control" id="Email" formControlName="Email">
+                                </div>
+                                <div class="alert alert-danger"
+                                *ngIf="email?.invalid && (email?.touched || email?.dirty)">
+                                <div *ngIf="email?.errors?.['required']">
+                                    Email is required
+                                </div>
+                                <div *ngIf="email?.errors?.['email']">
+                                    Must be email
+                                </div>
+                            </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <div>
+                                        <label for="inputuserName" class="form-label">First Name :
+                                        </label>
+                                    </div>
+                                    <input type="text" class="form-control" id="FirstName" formControlName="FirstName">
+                                    <div class="alert alert-danger"
+                                    *ngIf="firstName?.invalid && (firstName?.touched || firstName?.dirty)">
+                                    <div *ngIf="firstName?.errors?.['required']">
+                                        FirstName is required
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <div>
+                                        <label for="inputuserName" class="form-label">Last Name :
+                                        </label>
+                                    </div>
+                                    <input type="text" class="form-control" id="LastName" formControlName="LastName">
+                                    <div class="alert alert-danger"
+                                    *ngIf="lastName?.invalid && (lastName?.touched || lastName?.dirty)">
+                                    <div *ngIf="lastName?.errors?.['required']">
+                                        LastName is required
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <div>
+                                        <label for="inputuserName" class="form-label">Department :
+                                        </label>
+                                    </div>
+                                    <select class="form-control dropdown" id="DepartmentId"
+                                        formControlName="DepartmentId">
+                                        <option hidden [value]="userData?.department.id" disabled selected>
+                                            {{userData?.department.name}}</option>
+                                        <ng-container *ngFor="let dept of departments">
+                                            <option [value]="dept.id">
+                                                {{dept.name}}
+                                            </option>
+                                        </ng-container>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <div>
+                                        <label for="inputuserName" class="form-label">Phone :
+                                        </label>
+                                    </div>
+                                    <input type="text" class="form-control" id="PhoneNumber"
+                                        formControlName="PhoneNumber" placeholder="Phone Number"/>
+                                        <!-- <div class="alert alert-danger"
+                                        *ngIf="phoneNumber?.invalid && (phoneNumber?.touched || phoneNumber?.dirty)">
+                                        <div *ngIf="phoneNumber?.errors?.['pattern']">
+                                            PhoneNumber isn't match
+                                        </div>
+                                    </div> -->
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <div>
+                                        <label for="inputuserName" class="form-label">Current Password :
+                                        </label>
+                                    </div>
+                                    <input type="password" class="form-control" id="CurrentPassword"
+                                        formControlName="CurrentPassword" placeholder="************"/>
+                                        <div class="alert alert-danger"
+                                        *ngIf="currentPassword?.invalid && (currentPassword?.touched || currentPassword?.dirty)">
+                                        <div *ngIf="currentPassword?.errors?.['required']">
+                                            Password is required
+                                        </div>
+                                        <div *ngIf="currentPassword?.errors?.['passwordStrength']">
+                                            Password must be complex
+                                        </div>
+                                    </div>  
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <div>
+                                        <label for="inputuserName" class="form-label">New Password :
+                                        </label>
+                                    </div>
+                                    <input type="password" class="form-control" placeholder="New Password"
+                                        id="NewPassword" formControlName="NewPassword">
+                                        <div class="alert alert-danger"
+                                        *ngIf="newPassword?.invalid && (newPassword?.touched || newPassword?.dirty)">
+                                        <div *ngIf="newPassword?.errors?.['required']">
+                                            Password is required
+                                        </div>
+                                        <div *ngIf="newPassword?.errors?.['passwordStrength']">
+                                            Password must be complex
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <div>
+                                        <label for="inputuserName" class="form-label">Password Confirmation :
+                                        </label>
+                                    </div>
+                                    <input type="password" class="form-control" placeholder="confirm Password"
+                                        id="ConfirmNewPassword" formControlName="ConfirmNewPassword">
+                                        <div class="alert alert-danger"
+                                        *ngIf="confirmNewPassword?.invalid && (confirmNewPassword?.touched || confirmNewPassword?.dirty)">
+                                        <div *ngIf="confirmNewPassword?.errors?.['required']">
+                                            Password is required
+                                        </div>
+                                        <div *ngIf="confirmNewPassword?.errors?.['passwordStrength']">
+                                            Password must be complex
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="justify-content-between d-flex">
+                        <button class="button button1" routerLink="/user-info">Cancel</button>
+                        <button class="button button2" [disabled]="!updateForm.valid"
+                            (click)="userUpdate()">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,25 @@
+<div class="closeDiv"><button class="close" (click)="close()"><span class="mb-3 text-light">x</span></button></div>
+<p-toast></p-toast>
+<div class="d-flex">
+    <p>{{reportObjects[0]?.report.tCode+" : "}}</p>
+    <p class="ml-1">{{reportObjects[0]?.object.code}}</p>
+</div>
+<div class="row" *ngFor="let object of reportObjects ">
+    <div class="col-6 d-flex justify-content-between">
+        <!-- <input type="checkbox" class="check" (change)="addToObjectArray(object.id,$event)"> -->
+        <p class="mt-1">&nbsp;{{object?.objectValue}}
+        </p>
+        <div class="btns d-flex"><button mat-button class="proceedButton"
+                (click)="addToObjectArray(object.id)">Accept</button>
+            <button mat-button class="pendButton" (click)="openPendDialog(object.id)">Pend</button>
+            <button mat-button class="rejButton" (click)="openRejectDialog(object.id)">Reject</button>
+        </div>
+    </div>
+    <!-- <input #val class="col-lg-6 col-md-6 col-sm-12 inpObjVal mt-2" type="text" placeholder="Please Enter Value"
+        (blur)="addToObjectArray(object.id)"> -->
+</div>
+<div class="conBtnDiv" *ngIf="addAll">
+    <button mat-button class="conBtn" (click)="submit()">Accept All</button>
+
+
+</div>

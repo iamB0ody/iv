@@ -1,0 +1,24 @@
+<div class="closeDiv"><button class="close" (click)="close()"><span class="mb-3 text-light">x</span></button></div>
+
+<div class="text-center">
+    <b class="mt-2 mb-2 text-center">Please Select Report Objects</b>
+</div>
+<div class="row" *ngFor="let object of reportObjects ">
+    <div class="col-lg-6 col-md-6 col-sm-12">
+        <!-- <input type="checkbox" class="check"> -->
+        <p class="mt-3">&nbsp;{{object.name}}</p>
+        <div class="row">
+            <div *ngFor="let val of object.objectValue" class="d-flex justify-content-right col-6">
+                <input mdbCheckbox class="form-check-input" type="checkbox" value="" id="flexCheckDefault"
+                    (change)=" addToObjectArray(val,object,$event)" />
+                <label class="form-check-label" for="flexCheckDefault">
+                    {{val.value}}
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    <button (click)="acceptAll()" class="mt-2 submitBtn" *ngIf="count==0">Add All</button>
+    <button (click)="submit()" class="mt-2 submitBtn" *ngIf="count>0">Add</button>
+</div>

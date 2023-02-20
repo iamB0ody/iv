@@ -1,0 +1,146 @@
+<div class="container-fluid">
+    <p-toast></p-toast>
+    <div class="profileDiv">
+        <div class="row ">
+            <div class="col-xs-12 col-sm-10 col-md-10 col-lg-12">
+                <form [formGroup]="addForm" (ngSubmit)="submit()">
+                    <div class="tab-content userDataForm">
+                        <div class="row">
+                            <div class="tab-pane active" id="basic">
+
+                                <div class="form-group">
+                                    <div class="col-lg-12">
+                                        <div>
+                                            <label for="inputuserName" class="form-label">User Name<span class="text-danger">*</span>:
+                                            </label>
+                                        </div>
+                                        <input type="text" class="form-control" id="Username" formControlName="Username"
+                                            placeholder="Please Enter User Username" />
+                                        <div class="alert alert-danger"
+                                            *ngIf="username?.invalid && (username?.touched || username?.dirty)">
+                                            <div *ngIf="username?.errors?.['required']">
+                                                Username is required
+                                            </div>
+                                            <div *ngIf="username?.errors?.['maxlength']">
+                                                Max Length 12 character
+                                            </div>
+                                         <div *ngIf="username?.errors?.['pattern']">Username can not contain space.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div>
+                                        <label for="inputuserName" class="form-label">Email <span class="text-danger">*</span>:
+                                        </label>
+                                    </div>
+                                    <input type="text" class="form-control" id="Email" formControlName="Email"
+                                        placeholder="Please Enter User Email" />
+                                    <div class="alert alert-danger"
+                                        *ngIf="email?.invalid && (email?.touched || email?.dirty)">
+                                        <div *ngIf="email?.errors?.['required']">
+                                            Email is required
+                                        </div>
+                                        <div *ngIf="email?.errors?.['email']">
+                                            Must be email
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <div>
+                                        <label for="inputuserName" class="form-label">Password <span class="text-danger">*</span> :
+                                        </label>
+                                    </div>
+                                    <input type="password" class="form-control" id="Password" formControlName="Password"
+                                        placeholder="Please Enter User Password" />
+                                    <div class="alert alert-danger"
+                                        *ngIf="password?.invalid && (password?.touched || password?.dirty)">
+                                        <div *ngIf="password?.errors?.['required']">
+                                            Password is required
+                                        </div>
+                                        <div *ngIf="password?.errors?.['passwordStrength']">
+                                            Password must be complex
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <div>
+                                        <label for="inputuserName" class="form-label">First Name <span class="text-danger">*</span>:
+                                        </label>
+                                    </div>
+                                    <input type="text" class="form-control" id="FirstName" formControlName="FirstName"
+                                        placeholder="Please Enter User FirstName" />
+                                    <div class="alert alert-danger"
+                                        *ngIf="firstName?.invalid && (firstName?.touched || firstName?.dirty)">
+                                        <div *ngIf="firstName?.errors?.['required']">
+                                            FirstName is required
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <div>
+                                        <label for="inputuserName" class="form-label">Last Name<span class="text-danger">*</span>:
+                                        </label>
+                                    </div>
+                                    <input type="text" class="form-control" id="LastName" formControlName="LastName"
+                                        placeholder="Please Enter User LastName" />
+                                    <div class="alert alert-danger"
+                                        *ngIf="lastName?.invalid && (lastName?.touched || lastName?.dirty)">
+                                        <div *ngIf="lastName?.errors?.['required']">
+                                            LastName is required
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            
+                                <div class="col-lg-12">
+                                    <div>
+                                        <label for="inputuserName" class="form-label">Department <span class="text-danger">*</span>:
+                                        </label>
+                                    </div>
+                                    <select class="form-control drop" placeolder="Select Department"
+                                        formControlName="DepartmentId">
+                                        <ng-container *ngFor="let dept of departments">
+                                            <option [value]="dept.id">
+                                                {{dept.name}}
+                                            </option>
+                                        </ng-container>
+                                    </select>
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <div>
+                                        <label for="inputuserName" class="form-label">Phone :
+                                        </label>
+                                    </div>
+                                    <input type="text" class="form-control" id="PhoneNumber"
+                                        formControlName="PhoneNumber" placeholder="Please Enter User PhoneNumber" />
+                                    <!-- <div class="alert alert-danger"
+                                        *ngIf="phoneNumber?.invalid && (phoneNumber?.touched || phoneNumber?.dirty)">
+                                        <div *ngIf="phoneNumber?.errors?.['pattern']">
+                                            PhoneNumber isn't match
+                                        </div>
+                                    </div> -->
+                                </div>
+                                <div class="justify-content-between d-flex">
+                                    <button type="submit" class="button button2" [disabled]="!addForm.valid"
+                                        (click)="submit()">Add</button>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+  
+       
+</div>

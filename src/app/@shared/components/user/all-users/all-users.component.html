@@ -1,0 +1,92 @@
+<div class="container-fluid">
+    <p-toast></p-toast>
+    <p class="title">All Users</p>
+    <img src="./assets/icons/dash.svg">
+    <div class="example-container mat-elevation-z8">
+        <div [formGroup]="filterForm" class="filForm">
+            <mat-form-field>
+                <input matInput #filVal (keyup)="applyFilter(filVal)" placeholder="Filter" formControlName="Filter">
+            </mat-form-field>
+        </div>
+        <div>
+
+            <mat-table #table [dataSource]="dataSource">
+
+                <ng-container matColumnDef="userName">
+                    <mat-header-cell *matHeaderCellDef>UserName </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.userName}} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="firstName">
+                    <mat-header-cell *matHeaderCellDef> FirstName</mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.firstName}} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="lastName">
+                    <mat-header-cell *matHeaderCellDef> LastName </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.lastName}} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="departmentId">
+                    <mat-header-cell *matHeaderCellDef> DepartmentId </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.departmentId }} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="department">
+                    <mat-header-cell *matHeaderCellDef> DepartmentName</mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.department.name }} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="auth">
+                    <mat-header-cell *matHeaderCellDef>Add Authorize</mat-header-cell>
+                    <mat-cell *matCellDef="let element"> <button mat-button class="addButton"
+                            (click)="setUserId(element.id,element.firstName,element.lastName)" routerLink="/add-authorize">Add Auth
+                        </button>
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="authRep">
+                    <mat-header-cell *matHeaderCellDef>User Reports</mat-header-cell>
+                    <mat-cell *matCellDef="let element"> <button mat-button class="showButton"
+                            (click)="setUserId(element.id,element.firstName,element.lastName)" routerLink="/edit-authorize">Reports</button>
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="edit">
+                    <mat-header-cell *matHeaderCellDef>Edit Password</mat-header-cell>
+                    <mat-cell *matCellDef="let element"> <button mat-button class="editButton"
+                            (click)="resetDialog(element.userName)">Edit Pass</button>
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="status">
+                    <mat-header-cell mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+                    <mat-cell mat-cell *matCellDef="let element">
+                        <button mat-icon-button (click)="activateUser(element.userName)" class="activateButton"
+                            *ngIf="element.isActive==='False'">
+                            Activate
+                        </button>
+                        <button mat-icon-button (click)="deactivateUser(element.userName)" class="deactivateButton"
+                            *ngIf="element.isActive==='True'">
+                            Deactivate
+                        </button>
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="del">
+                    <mat-header-cell mat-header-cell *matHeaderCellDef>Delete</mat-header-cell>
+                    <mat-cell mat-cell *matCellDef="let element">
+                        <!-- <mat-icon class="mat-18 text-danger border-none"
+                            (click)="deleteSelectedUser(element.userName)">delete</mat-icon> -->
+                        <button mat-icon-button (click)="deleteSelectedUser(element.userName)" class="deleteButton">
+                            Delete
+                        </button>
+
+                    </mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+
+            <mat-paginator [length]="totalLength" [pageSize]="25" [pageSizeOptions]="[25,50,100]">
+            </mat-paginator>
+        </div>
+
+        <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20]"></mat-paginator> -->
+    </div>
+</div>

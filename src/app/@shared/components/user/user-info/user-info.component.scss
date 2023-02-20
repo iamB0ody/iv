@@ -1,0 +1,69 @@
+@import "../../../../../styles.scss";
+
+.container-fluid {
+    padding: 52px 233px 72px 233px;
+    background-color: #F3F3F5;
+}
+
+input {
+    height: 44px;
+    border-radius: 5px;
+    background: #F3F3F5;
+    pointer-events: none;
+    margin-bottom: 12px !important;
+}
+
+input[type=text] {
+    background-color: #F3F3F5 !important;
+
+}
+
+.profileDiv {
+    background: #FFFFFF;
+    box-shadow: 0px 4px 32px rgba(61, 70, 112, 0.15);
+    border-radius: 12px;
+}
+
+.userDataForm {
+    background-color: #F3F3F5;
+    border-radius: 12px;
+    padding: 30px 5% 30px 5%;
+}
+
+.userImageDiv {
+    height: 277px;
+    width: 100%;
+    justify-content: center !important;
+}
+
+.userImage {
+    border-radius: 50%;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    margin-top: 40px;
+    height: 150px;
+    width: 150px;
+}
+
+button {
+    background-color: $primaryColor !important;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    text-transform: capitalize;
+    color: #FFFFFF;
+    margin-top: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 30px;
+    gap: 10px;
+    width: 47%;
+    height: 44px;
+    border: none;
+    background: #1E1838;
+
+}

@@ -1,0 +1,17 @@
+<div class="w-full relative">
+    <h5 mat-dialog-title class="text-center text-xl">{{data.title}}</h5>
+    <mat-divider></mat-divider>
+    <mat-dialog-content class="flex flex-row justify-center items-center p-5">
+        <small class="text-center p-5">{{data.confirmationMessage}}</small>
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="center" class="buttons relative top-10 justify-content-around">
+
+        <button mat-button mat-dialog-close class="close text-white rounded-md px-7">
+            <!-- <mat-icon>close</mat-icon> -->
+            {{data.close}}
+        </button>
+        <button mat-button [mat-dialog-close]="true" cdkFocusInitial
+            class="complete px-7 rounded-md text-white ">{{data.ok}}</button>
+    </mat-dialog-actions>
+</div>

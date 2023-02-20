@@ -1,0 +1,82 @@
+<div class="container-fluid  bg-white">
+    <p-toast></p-toast>
+    <div>
+        <img src="./assets/icons/coloredLogo.svg" class="logo">
+        <p class="sName">IV Solution</p>
+        <p class="sDesc">Historical Data Cockpit</p>
+    </div>
+    <div class="drop">
+        <mat-sidenav #sidenav class="example-sidenav" mode="side" opened="true" (mouseenter)="mouseenter()"
+            (mouseleave)="mouseleave()">
+            <mat-nav-list routerLink="/favorite-reports" 
+                routerLinkActive="active" ariaCurrentWhenActive="page">
+                <mat-list-item (click)="showSubmenu = !showSubmenu;gefavorite()" class="parent">
+                    <img src="./assets/icons/favorite.svg" class="mainListImg img1" width="21" height="28">
+                    <img src="./assets/icons/cFavorite.svg" class="mainListImg img2" width="21" height="28">
+                    <span class="full-width" *ngIf="isExpanded || isShowing">
+                        <ng-container *ngIf="isFav" class="mt-1" (click)="openFav();getFavUserReports()">Favorite Reports</ng-container>
+                        <ng-container *ngIf="!isFav" class="mt-1" (click)="openFav();getFavUserReports()">No Favorites</ng-container>
+                    </span>
+                    <i class="fa-solid fa-angle-down menu-button" [ngClass]="{'rotated' : showSubmenu}"
+                        *ngIf="isExpanded || isShowing"></i>
+                </mat-list-item>
+                <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
+                    <ng-container *ngFor="let rep of favReports" >
+                        <a mat-list-item href="..." class="favReport"  [routerLink]="['/selection-criteria/',rep.tCode]">
+                            <img src="./assets/icons/report.svg" class="mainListImg img1" width="15" height="20">
+                            <img src="./assets/icons/cReport.svg" class="mainListImg img2" width="15" height="20">
+                            {{rep.tCode}}
+                        </a>
+                    </ng-container>
+                </div>
+            </mat-nav-list>
+            <!-- <mat-nav-list (click)="openFav()">
+            <mat-list-item (click)="showSubmenu = !showSubmenu;gefavorite()" class="parent">
+                <img src="./assets/icons/favorite.svg" class="mainListImg" width="21" height="28">
+                <span class="full-width" *ngIf="isExpanded || isShowing">
+                    <ng-container *ngIf="isFav">Favorite Reports</ng-container>
+                    <ng-container *ngIf="!isFav">No Favorites</ng-container>
+                </span>
+                <i class="fa-solid fa-angle-down menu-button text-light" [ngClass]="{'rotated' : showSubmenu}"
+                    *ngIf="isExpanded || isShowing"></i>
+            </mat-list-item>
+            <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
+                <ng-container *ngFor="let rep of favReports">
+                    <a mat-list-item href="..." class="favReport" [routerLink]="['/selection-criteria/',rep.tCode]">
+                        <img src="./assets/icons/report.svg" class="mainListImg" width="15" height="20">
+                        {{rep.tCode}}
+                    </a>
+                </ng-container>
+            </div>
+        </mat-nav-list> -->
+            <!-- ////// -->
+            <mat-nav-list (click)="openAll()" routerLink="/all-reports" routerLinkActive="active"
+                ariaCurrentWhenActive="page">
+                <mat-list-item>
+                    <img src="./assets/icons/allrep.svg" class="mainListImg img1" width="17" height="22">
+                    <img src="./assets/icons/cAll.svg" class="mainListImg img2" width="17" height="22">
+                    <span class="full-width mt-1">All Reports</span>
+                </mat-list-item>
+            </mat-nav-list>
+            <!-- ////// -->
+            <mat-nav-list *ngIf="isAdmin" routerLink="/respond-authorize" routerLinkActive="active"
+                ariaCurrentWhenActive="page">
+                <mat-list-item>
+                    <img src="./assets/icons/request.svg" class="mainListImg img1" width="17" height="22">
+                    <img src="./assets/icons/cRequest.svg" class="mainListImg img2" width="17" height="22">
+                    <span class="full-width">Requests</span> </mat-list-item>
+            </mat-nav-list>
+            <mat-nav-list *ngIf="!isAdmin" routerLink="/ask-authorize" routerLinkActive="active"
+                ariaCurrentWhenActive="page">
+                <mat-list-item>
+                    <img src="./assets/icons/request.svg" class="mainListImg img1" width="17" height="22">
+                    <img src="./assets/icons/cRequest.svg" class="mainListImg img2" width="17" height="22">
+                    <span class="full-width">Requests</span>
+                </mat-list-item>
+            </mat-nav-list>
+        </mat-sidenav>
+        <div class="logout text-danger" (click)="logout()"> <img src="./assets/icons/Logout.svg">
+            logout</div>
+    </div>
+    
+</div>

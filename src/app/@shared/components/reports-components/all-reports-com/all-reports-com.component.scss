@@ -1,0 +1,229 @@
+$reportsHeight: calc((100%) - (168px));
+$logindataLeft: calc((16.777%) + (20px));
+
+.container-fluid {
+    background-color: rgb(233, 227, 227);
+    padding: 0px 20px 20px 20px;
+    height: $reportsHeight;
+    overflow: hidden;
+}
+
+.pageTitle {
+    display: flex;
+    justify-content: space-between;
+    height: 103px !important;
+    ;
+}
+
+.card {
+    height: 225px;
+
+}
+
+dx-load-indicator {
+    margin: 40vh 35vw;
+}
+
+.dash {
+    margin-top: 34px;
+    margin-bottom: -12px !important;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 30px;
+    text-transform: capitalize;
+    color: #1E1838;
+}
+
+.title {
+
+    p {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 27px;
+        text-transform: capitalize;
+        margin-top: auto;
+        margin-left: 8px;
+    }
+
+    justify-content: space-between !important;
+}
+
+.desc {
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    text-transform: capitalize;
+
+    color: #6C6C6C;
+    height: 55px;
+}
+
+.lastReport {
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+    text-transform: capitalize;
+    color: #363636;
+}
+
+.repButton {
+    background-color: #1E1838;
+    height: 50px;
+    font-style: normal;
+    padding-top: 10px;
+    margin-bottom: 10px;
+    font-family: 'poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+    text-transform: capitalize;
+    cursor: pointer !important;
+    color: #FFFFFF;
+}
+
+.repBody {
+    height: 175px;
+    padding: 20px 20px 0px 20px;
+}
+
+@media(max-width:990px) {
+    .loginData {
+        min-height: 50px;
+        background-color: white;
+        border-radius: 5px;
+        padding-left: 20px;
+        padding-right: 20px;
+        justify-content: space-between;
+        display: flex;
+        position: fixed;
+        bottom: 10px;
+        right: 20px;
+        left: 20px;
+
+    }
+}
+
+@media(min-width:990px) {
+    .loginData {
+        max-width: 100%;
+
+        min-height: 50px;
+        background-color: white;
+        border-radius: 5px;
+        padding-left: 20px;
+        padding-right: 20px;
+        justify-content: space-between;
+        display: flex;
+        position: fixed;
+        bottom: 10px;
+        right: 20px;
+        left: $logindataLeft;
+
+    }
+}
+
+.loginDate {
+    padding: 5px 20px 8px 20px;
+    margin-right: 20px;
+    height: 34px;
+    color: white;
+    /* primary color/primary color */
+    margin-top: 8px;
+    background: #1E1838;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+    margin-left: auto;
+}
+
+.loginTime {
+    padding: 5px 20px 8px 20px;
+
+
+    height: 34px;
+    color: white;
+    margin-top: 8px;
+    background: #1E1838;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+
+}
+
+.loginPrefix {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+    text-transform: capitalize;
+    margin-top: 14px;
+
+    color: #000000;
+}
+
+.loginValue {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    text-transform: capitalize;
+    margin-top: 12px;
+    color: #000000;
+
+}
+
+.timeContainer {
+    height: 125px !important;
+    position: relative;
+    background-color: rgb(233, 227, 227) !important;
+}
+
+.addFav {
+    width: 55px;
+    height: 43px;
+    background: #E0DFE3;
+    border-radius: 5px;
+    font-size: 7px;
+    justify-content: center !important;
+    text-align: center;
+    padding-top: 6px;
+    font-style: normal;
+    font-weight: 400;
+    color: #1E1838;
+
+    img {
+        margin-bottom: 4px;
+        cursor: pointer;
+    }
+}
+
+a {
+    color: black !important;
+}
+.messageDiv
+{
+    
+    text-align: center!important;
+    font-family: 'Poppins'!important;
+    font-style: normal!important;
+    font-weight: 500!important;
+    font-size: 20px!important;
+    line-height: 30px!important;
+    text-transform: capitalize!important;
+    color: #1E1838!important;
+    margin-top: 30vh!important;
+        margin-bottom: auto!important;
+    
+}

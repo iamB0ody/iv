@@ -1,0 +1,137 @@
+@import '../../../../../styles.scss';
+$tableHeight: calc((100%) - (68px));
+
+.container-fluid {
+    background-color: rgb(233, 227, 227);
+    padding: 25px;
+    height: $tableHeight;
+    overflow: hidden;
+}
+
+.example-container {
+    background-color: #F3F3F5;
+    margin-top: 15px;
+    border-radius: 5px !important;
+}
+
+
+.activateButton {
+    border: none;
+    background-color: #13653f;
+    color: white;
+    border-radius: 2px;
+    padding: 4px
+}
+
+.deactivateButton {
+    border: none;
+    // background-color: #f0b400;
+    background-color: #92051e;
+    color: white;
+    border-radius: 2px;
+    padding: 4px;
+}
+
+.deleteButton {
+    border: none;
+    background-color: #92051e;
+    color: white;
+    border-radius: 2px;
+    padding: 4px;
+
+}
+
+.actionBtn {
+    border: none;
+    background-color: white
+}
+
+.filForm {
+    padding-left: 5px;
+}
+
+button {
+    cursor: pointer;
+}
+
+.title {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 30px;
+    text-transform: capitalize;
+    color: #1E1838;
+    margin-bottom: -10px;
+}
+
+mat-form-field {
+    width: 35%;
+}
+
+.addButton {
+    border: none;
+    background-color: #13653f;
+    color: white;
+    border-radius: 2px;
+    padding: 4px
+}
+
+.editButton {
+    border: none;
+    background-color: #3498DB;
+    color: white;
+    border-radius: 2px;
+    padding: 4px;
+}
+
+.showButton {
+    border: none;
+    background-color: #1E1838;
+    color: white;
+    border-radius: 2px;
+    padding: 4px
+}
+
+.mat-column-edit,
+.mat-column-auth {
+    word-wrap: break-word !important;
+    white-space: unset !important;
+    width: 16% !important;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+
+    word-break: break-word;
+
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+}
+
+mat-header-cell,
+mat-cell {
+    padding-right: 5px !important;
+}
+
+.mat-column-auth {
+    word-wrap: break-word !important;
+    white-space: unset !important;
+    margin-left: 20px !important;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+
+    word-break: break-word;
+
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+}
+
+mat-table {
+    text-align: left !important;
+    justify-content: start !important;
+
+
+}

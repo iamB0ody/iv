@@ -1,0 +1,23 @@
+.container-fluid {
+    background-color: rgb(233, 227, 227);
+    padding: 37px 20px 37px 20px;
+    min-height: 90vh;
+}
+
+.title {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 30px;
+    text-transform: capitalize;
+    color: #1E1838;
+    margin-bottom: -10px;
+}
+
+.requestCard {
+    height: 80px;
+    width: 100%;
+    margin-top: 10px;
+    background-color: white;
+}

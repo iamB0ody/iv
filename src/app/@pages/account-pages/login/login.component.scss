@@ -1,0 +1,132 @@
+@import "../../../../styles.scss";
+$logTopMarg: calc((50vh) - (120px));
+
+.container-fluid {
+    background-color: #F5F5F5;
+
+}
+
+///////////////////////////////Logo/////////////////////////////////////
+.logoDiv {
+    background-image: url('../../../../assets/imgs/logobackground.png');
+    background-color: $primaryColor;
+    height: 100vh;
+
+    .logo {
+        text-align: center;
+        padding: 35px 0px 35px 0px;
+        color: whitesmoke;
+        margin-top: $logTopMarg;
+        background-image: url('../../../../assets/imgs/background.png');
+        height: 239px;
+
+    }
+
+    .siteName {
+        font-family: 'Montserrat', sans-serif;
+        font-style: normal;
+        font-weight: 800;
+        font-size: 26.4524px;
+        line-height: 32px;
+
+        color: #FBFBFB;
+    }
+
+}
+
+.desc {
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12.868px;
+    line-height: 16px;
+    letter-spacing: 0.075em;
+    color: #cac8c8;
+}
+
+///////////////////////////////Login Form/////////////////////////////////////
+.loginDiv {
+    padding: 0 10%;
+    justify-content: center;
+    margin-top: auto;
+    margin-bottom: auto;
+    font-family: "poppins";
+    font-style: normal;
+    height: 100%;
+
+    @media(min-width:990px) {
+        .sLogo {
+            display: none;
+            background-image: url('../../../../assets/imgs/background.png');
+            background-color: $primaryColor !important;
+        }
+    }
+
+    .sLogo {
+        background-image: url('../../../../assets/imgs/logobackground.png');
+        background-color: $primaryColor !important;
+        background-position: center;
+        color: #FBFBFB;
+        margin: 10px 0px 10px 0;
+        padding-top: 10px;
+
+    }
+
+    @media(max-width:990px) {
+
+        input,
+        button {
+            height: 40px;
+        }
+
+        .forgetPassDiv {
+            margin: -15px 0 10px 0px;
+        }
+
+        .check {
+            margin-top: 7px;
+        }
+    }
+
+    @media(min-width:990px) {
+
+        input,
+        button {
+            height: 56px;
+        }
+
+        .forgetPassDiv {
+            margin: -15px 0 10px 0px;
+        }
+    }
+}
+
+.btn {
+    background-color: $primaryColor !important;
+    color: whitesmoke !important;
+    text-transform: capitalize !important;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 27px;
+    letter-spacing: 0em;
+
+}
+
+input {
+    text-indent: 20px !important;
+}
+
+////////////////////////////@at-root
+.inputWithIcon {
+    position: relative;
+}
+
+.ic {
+    position: absolute;
+    top: 35%;
+    left: 2%;
+}
+
+.passForget {
+    cursor: pointer;
+}

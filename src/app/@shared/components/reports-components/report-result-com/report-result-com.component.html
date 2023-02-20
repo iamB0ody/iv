@@ -1,0 +1,286 @@
+<div class="container-fluid p-0" style="background: rgb(233, 227, 227);padding: 16px !important;">
+    <div class="content m-2 p-3">
+        <a href="javaScript:void" routerLink="/selection-criteria/{{RouterId}}" class="Back ">
+            <i class="fa-solid fa-arrow-left "></i>
+            <span>{{RouterId}}</span>
+        </a>
+        <p-toast></p-toast>
+        <!-- Bar Search -->
+        <section class="FillterSection">
+            <ul class="nav navbar navbar-left d-flex d-inline-flex ">
+                <li (click)="SumClicked ? SumClicked = false : SumClicked = true "
+                    class="nav-item mt-2 d-inline-flex text-center  align-items-center mr-2">
+                    <a class="nav-link d-inline-flex" href="javaScript:void">
+                        <i class="fa-solid icon fa-subscript"></i> Sum
+                    </a>
+                </li>
+                <!-- <li (click)=" SumClicked = false"
+                    class="nav-item mt-2 d-inline-flex text-center  align-items-center mr-2">
+                    <a class="nav-link d-inline-flex" href="javaScript:void">
+                        <i class="fa-solid icon fa-filter"></i> Fillter
+                    </a>
+                </li> -->
+                <li class="nav-item mt-2 d-inline-flex text-center  align-items-center mr-2">
+                    <a class="nav-link d-inline-flex" href="javaScript:void">
+                        <i class="fa-solid icon fa-subscript"></i> Sub Total
+                    </a>
+                </li>
+                <li class="nav-item mt-2 d-inline-flex text-center  align-items-center mr-2" (click)="SaveLayout()"  *ngIf="shAddBtn">
+                    <a class="nav-link d-inline-flex" href="javaScript:void">
+                        <i class="fa-solid icon fa-floppy-disk"></i> Add layout
+                    </a>
+                </li>
+                <li class="nav-item mt-2 d-inline-flex text-center  align-items-center mr-2" (click)=" InitTableHeader()"  *ngIf="!shAddBtn">
+                    <a class="nav-link d-inline-flex" href="javaScript:void">
+                        <i class="fa-solid icon fa-floppy-disk"></i> Default layout
+                    </a>
+                </li>
+               
+                <li class="nav-item mt-2 d-inline-flex text-center  align-items-center mr-2" (click)="updateLayout()">
+                    <a class="nav-link d-inline-flex" href="javaScript:void">
+                        <i class="fa-regular icon fa-rectangle-list"></i> Update layout
+                    </a>
+                </li>
+                 <li class="nav-item mt-2 d-inline-flex text-center  align-items-center mr-2" (click)="SelectLayout()">
+                    <a class="nav-link d-inline-flex" href="javaScript:void">
+                        <i class="fa-solid icon fa-hand-pointer"></i> Select layout
+                    </a>
+                </li>
+                <li class="nav-item mt-2 d-inline-flex text-center  align-items-center mr-2" (click)="ExportTOExcel()">
+                    <a class="nav-link d-inline-flex" href="javaScript:void">
+                        <i class="fa-solid icon fa-file-export"></i> Export Current
+                    </a>
+                </li>
+                <li class="nav-item mt-2 d-inline-flex text-center  align-items-center mr-2" (click)="ExportAllData()">
+                    <a class="nav-link d-inline-flex" href="javaScript:void">
+                        <i class="fa-solid icon fa-file-export"></i> Export All
+                    </a>
+                </li>
+                <li class="nav-item mt-2 d-inline-flex text-center  align-items-center mr-2">
+                    <a class="nav-link d-inline-flex" href="javaScript:void">
+                        <i class="fa-solid fa-circle-chevron-down"></i> </a>
+                </li>
+            </ul>
+        </section>
+        <!--/ Bar Search -->
+        <!-- Table Result -->
+        <div class="Genralcontent">
+            <div class="scroll mt-2">
+                <div class="Content">
+                    <!-- table content -->
+                    <!-- [virtualScrollItemSize]="46" [pageSize]="PagesNumber"  -->
+                    <p-table [loading]="DataLoaded" [totalRecords]="PagesNumber" class="tableClass" #ٌRepoResult  [scrollable]="true" 
+                    scrollDirection="both" scrollHeight="68vh"
+                        [value]="dataSource " dataKey="id" [rows]="10000" styleClass="p-datatable-customers">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th style="width: 10.5rem" *ngFor="let item of tableHeader ">
+                                    <ng-container *ngIf="fillter != item ">
+                                        <a class="nav-link d-inline-flex tableHeader p-0 m-0" href="javaScript:void">
+                                            <span (click)="SumClicked? '' : fillter = item ">{{item}}</span>
+                                            <i *ngIf="!SumClicked" (click)="fillter = item"
+                                                class="fa-solid fa-search m-1 "></i>
+                                            <i *ngIf="SumClicked" (click)="SumColumn(item)"
+                                                class="fa-solid fa-subscript m-1 "></i>
+                                        </a>
+                                    </ng-container>
+                                    <ng-container *ngIf="fillter == item">
+                                        <button (click)="fillter=''" class="btn CloseSearchReport btn-danger "
+                                            label="Close" (click)="sumTotalValue=0">
+                                            x
+                                        </button>
+                                        <p-columnFilter type="text" [placeholder]="item"
+                                            field="{{item}}"></p-columnFilter>
+
+                                    </ng-container>
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-customer>
+                            <tr>
+                                <td *ngFor="let item of tableHeader">
+                                    {{customer[item] }}
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <!-- <ng-template pTemplate="body" let-customer>
+                            <tr>
+                                <ng-container *ngFor="let item of tableHeader">
+                                <td *ngIf="customer[item]=='Total'" class="bg-warning">
+                                   {{customer[item] }}
+                                 
+                                </td>
+                                <td *ngIf="customer[item]!='Total'">
+                                    {{customer[item] }}
+                                  
+                                 </td>
+                            </ng-container>
+                            </tr>
+                            
+                        </ng-template> -->
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td colspan="5">No data found.</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                    <!-- <p-paginator [rows]="10000" [totalRecords]="pageNum"
+                        (onPageChange)="paginate($event)"></p-paginator> -->
+
+                    <!-- / table content -->
+
+                </div>
+            </div>
+        </div>
+      <div class="paginator d-flex mt-4" *ngIf="dataSource"><i class="fa-solid fa-chevron-left mt-1"  [ngClass]="{ 'disabled': pageNum === 1 }" (click)="paginateNegative()"></i>&nbsp;&nbsp;<p >{{pageNum}}</p>&nbsp;&nbsp;<i class="fa-solid fa-chevron-right mt-1" (click)="paginatePositive()"></i></div>
+        <!-- /Table Result -->
+        <!-- Sub Section -->
+        <section class="Sub text-center" *ngIf="sumTotalValue">
+            <p>{{sumTotalValue | number}}</p>
+            <button icon="pi pi-times" class="btn btn-danger btn-sm" label="Close" (click)="sumTotalValue=0">
+                x
+            </button>
+        </section>
+        <!-- / Sub Section -->
+    </div>
+
+</div>
+
+<!-- sub Section DialogModule  -->
+<ng-container *ngIf="DialogVisabilty">
+    <p-dialog [closable]="false" [(visible)]="DialogVisabilty" [modal]="true" [style]="{width: '50vw'}"
+        [maximizable]="true" [baseZIndex]="10000" [draggable]="true" [resizable]="true">
+        <!-- digram header  -->
+        <p-header> {{DialogItem}} </p-header>
+        <!--/ digram header  -->
+
+        <!-- digram Content -->
+        <div class="content mt-1">
+          <div class="d-flex">
+            <p class="mt-1">Layout Name :</p> <input type="text"  class="layName" [(ngModel)]="lName" >
+          </div>
+            <div *ngFor="let item of tableHeader ;let x=index" class="SelectTableHeader">
+                <ng-container>
+                    <a class=" tableHeader " href="javaScript:void">
+                        <span class="mt-1">{{item}} </span>
+                        <button  (click)="CheckSelectItem(item,$event)" icon="pi pi-times"
+                            class="btn SelectButton btn-sm">
+                            Select
+                        </button>
+                    </a>
+                    <br><br>
+                    <!-- <button *ngIf="!item.select" (click)="item.select = true" icon="pi pi-times"
+                        class="btn btn-danger btn-sm" label="Close">
+                        Don't Select
+                    </button> -->
+                </ng-container>
+            </div>
+          <!-- <div class="justify-content-right">
+           
+          </div> -->
+        </div>
+        <!--/ digram Content -->
+        <!-- close -->
+        <ng-template pTemplate="footer">
+            <button  icon="pi pi-times" class="btn  btn-success "
+            label="Confirm" (click)="addLayout()" [disabled]="!lName">
+           Confirm
+        </button>
+            <button icon="pi pi-times" class="btn btn-danger" (click)="DialogVisabilty = false"
+                label="Close">Close</button>
+        </ng-template>
+        <!--/ close -->
+
+    </p-dialog>
+</ng-container>
+<!-- ///////////////////////////////////// -->
+<ng-container *ngIf="DialogUpdateSelectedReport">
+    <p-dialog [closable]="false" [(visible)]="DialogUpdateSelectedReport" [modal]="true" [style]="{width: '50vw'}"
+        [maximizable]="true" [baseZIndex]="10000" [draggable]="true" [resizable]="true">
+        <!-- digram header  -->
+        <p-header> {{DialogItem}} </p-header>
+        <!--/ digram header  -->
+
+        <!-- digram Content -->
+        <div class="content mt-1">
+          <div class="d-flex">
+            <p class="mt-1">Layout Name :</p> <input type="text"  class="layName" [(ngModel)]="lName" >
+          </div>
+            <div *ngFor="let item of tableHeader ;let x=index" class="SelectTableHeader">
+                <ng-container>
+                    <a class=" tableHeader " href="javaScript:void">
+                        <span class="mt-1">{{item}} </span>
+                        <button  (click)="CheckSelectItem(item,$event)" icon="pi pi-times"
+                            class="btn SelectButton btn-sm" *ngIf="updateArray[x].checked==false">
+                            Select
+                        </button>
+                        <button  (click)="CheckSelectItem(item,$event)" icon="pi pi-times"
+                        class="btn SelectButton btn-sm" *ngIf="updateArray[x].checked==true">
+                        Remove
+                    </button>
+                    </a>
+                    <br><br>
+                    <!-- <button *ngIf="!item.select" (click)="item.select = true" icon="pi pi-times"
+                        class="btn btn-danger btn-sm" label="Close">
+                        Don't Select
+                    </button> -->
+                </ng-container>
+            </div>
+          <!-- <div class="justify-content-right">
+           
+          </div> -->
+        </div>
+        <!--/ digram Content -->
+        <!-- close -->
+        <!-- (click)="submitUpdate()" (click)="DialogUpdateSelectedReport = false" -->
+        <ng-template pTemplate="footer">
+            <button  icon="pi pi-times" class="btn  btn-success "
+            label="Confirm"  [disabled]="!lName">
+           Update
+        </button>
+            <button icon="pi pi-times" class="btn btn-danger" 
+                label="Close">Close</button>
+        </ng-template>
+        <!--/ close -->
+
+    </p-dialog>
+</ng-container>
+<!--/ sub Section DialogModule  -->
+<!--select layout-->
+<ng-container *ngIf="DialogSelectionFunction && hasLayouts">
+    <p-dialog [closable]="false" [(visible)]="DialogSelectionFunction && hasLayouts" [modal]="true" [style]="{width: '50vw'}"
+        [maximizable]="true" [baseZIndex]="10000" [draggable]="true" [resizable]="true">
+        <!-- digram header  -->
+        <p-header> {{DialogItem}} </p-header>
+        <div *ngFor="let lay of layouts" >
+            <div (click)="openLayout(lay.id)" class="sLayout">
+                <h6>{{lay.layoutName}}</h6><small>{{lay.createdDate|slice:0:10}}</small>
+            </div>
+
+        </div>
+        <ng-template pTemplate="footer">
+            <button icon="pi pi-times" class="btn btn-danger" (click)="DialogSelectionFunction = false"
+                label="Close">Close</button>
+        </ng-template> </p-dialog></ng-container>
+        <ng-container *ngIf="DialogUpdateFunction && hasLayouts">
+            <p-dialog [closable]="false" [(visible)]="DialogUpdateFunction && hasLayouts" [modal]="true" [style]="{width: '50vw'}"
+                [maximizable]="true" [baseZIndex]="10000" [draggable]="true" [resizable]="true">
+                <!-- digram header  -->
+                <p-header> {{DialogItem}} </p-header>
+                <div *ngFor="let lay of layouts" >
+                    <div  class="sLayout">
+                        <h6>{{lay.layoutName}}</h6>
+                        <div>
+                            <button icon="pi pi-times" class="btn deleteButton btn-sm " (click)="DialogUpdateFunction = false;deleteLayout(lay.id)"
+                            >Delete</button>
+                            <button icon="pi pi-times" class="btn UpdateButton btn-sm" (click)="updateLayoutFunction(lay.id,lay.layoutName)"
+                       >Update</button>
+                       
+                        </div>
+                    </div>
+        
+                </div>
+                <ng-template pTemplate="footer">
+                    <button icon="pi pi-times" class="btn btn-danger" (click)="DialogUpdateFunction = false"
+                        label="Close">Close</button>
+                </ng-template> </p-dialog></ng-container>

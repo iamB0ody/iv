@@ -1,0 +1,32 @@
+$reportsHeight: calc((100%) - (68px));
+
+.container-fluid {
+    background-color: rgb(233, 227, 227);
+    padding: 25px;
+    height: $reportsHeight;
+    overflow: hidden;
+}
+
+.contentDiv {
+    background-color: #F3F3F5;
+    padding: 25px;
+    border: 1px solid #DDDDE1;
+    border-radius: 5px;
+}
+
+.btns {
+    justify-content: right !important;
+    text-align: end;
+}
+
+.proceedButton {
+    border: none;
+    background-color: #13653f;
+    color: white;
+    border-radius: 2px;
+    padding: 4px;
+}
+
+.allBtn {
+    margin-left: 10px !important;
+}

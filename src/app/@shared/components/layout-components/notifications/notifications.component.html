@@ -1,0 +1,85 @@
+<!-- <div class="container-fluid">
+    <table class="table">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Content</th>
+                <th scope="col">Read</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of notifications">
+                <td>{{item.id}}</td>
+                <td>{{item .message}}</td>
+                <td>
+                    <!-- <button type="button" class="btn readBtn" [routerLink]="['/notification/',item.id]">Read</button>
+                    <button mat-button class="readButton" [routerLink]="['/notification/',item.id]"
+                        (click)="readNotification(item.id)">Read</button>
+                </td>
+        </tbody>
+    </table>
+</div> -->
+<div class="container-fluid">
+    <p class="title">Notifications</p>
+    <img src="./assets/icons/dash.svg">
+    <div class="example-container mat-elevation-z8">
+        <div [formGroup]="filterForm" class="filForm">
+            <mat-form-field>
+                <input matInput #filVal (keyup)="applyFilter(filVal)" placeholder="Filter" formControlName="Filter">
+            </mat-form-field>
+        </div>
+        <div>
+
+            <mat-table #table [dataSource]="dataSource">
+
+                <ng-container matColumnDef="userName">
+                    <mat-header-cell *matHeaderCellDef>UserName </mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                        <ng-container *ngIf="element.sender!=null">{{element.sender.userName}}</ng-container>
+                        <ng-container *ngIf="element.sender==null">Admin</ng-container>
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="message">
+                    <mat-header-cell *matHeaderCellDef>Content </mat-header-cell>
+                    <mat-cell *matCellDef="let element"><small>{{element.message}} </small> </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="date">
+                    <mat-header-cell *matHeaderCellDef>Date </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.date|slice:0:10 }} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="type">
+                    <mat-header-cell *matHeaderCellDef>Type </mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                        <ng-container *ngIf="element.type==0">AskForAuthorize</ng-container>
+                        <ng-container *ngIf="element.type==1">ResponseToAuthorize</ng-container>
+                        <ng-container *ngIf="element.type==2">AddUserAuthorize</ng-container>
+                        <ng-container *ngIf="element.type==3">ResetPassword </ng-container>
+
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="action">
+                    <mat-header-cell *matHeaderCellDef>View </mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                        <!-- <ng-container *ngIf="element.type==0"><button mat-button class="proceedButton">Add
+                                Authorize</button></ng-container>
+                        <ng-container *ngIf="element.type==1"><button mat-button class="proceedButton">Proceed
+                                Password</button></ng-container>
+                        <ng-container *ngIf="element.type==2"><button mat-button
+                                class="proceedButton">Accept</button></ng-container>
+                        <ng-container *ngIf="element.type==3"><button mat-button class="proceedButton">Reset
+                                Password</button></ng-container> -->
+                        <button type="button" class="bg-secondary viewBtn" (click)="readNotification(element.id)"
+                            [routerLink]="['/notification/',element.id]">View</button>
+                    </mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+
+            <mat-paginator [length]="totalLength" [pageSize]="10" [pageSizeOptions]="[10,25,50]">
+            </mat-paginator>
+        </div>
+
+        <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20]"></mat-paginator> -->
+    </div>
+</div>

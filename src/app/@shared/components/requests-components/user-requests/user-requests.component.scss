@@ -1,0 +1,53 @@
+@import '../../../../../styles.scss';
+$tableHeight: calc((100%) - (68px));
+
+.container-fluid {
+    background-color: rgb(233, 227, 227);
+    padding: 25px;
+    height: $tableHeight;
+    overflow: hidden;
+}
+
+.example-container {
+    background-color: #F3F3F5;
+    margin-top: 15px;
+    border-radius: 5px !important;
+}
+
+
+.title {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 30px;
+    text-transform: capitalize;
+    color: #1E1838;
+    margin-bottom: -10px;
+}
+
+.requestCard {
+    height: 80px;
+    width: 100%;
+    margin-top: 10px;
+    background-color: white;
+}
+
+.badge {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 100px !important;
+    justify-content: center !important;
+    padding-top: 20px;
+    max-height: 25px !important;
+    // border-radius: 15px;
+    margin-right: 2%;
+}
+
+mat-form-field {
+    width: 35%;
+}
+
+.filForm {
+    padding-left: 5px;
+}

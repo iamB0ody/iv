@@ -1,0 +1,11 @@
+<div class="closeDiv"><button class="close" (click)="close()"><span class="mb-3 text-light">x</span></button></div>
+<div class="container-fluid">
+    <p-toast></p-toast>
+    <form [formGroup]="notesForm">
+        <div class="sub-heading mb-2">Please Add notes</div>
+        <textarea cols="40" rows="10" class="tesxt-area" formControlName="Notes"></textarea>
+        <div class="sendBtn"> <button type="submit" class="btn sBtn mt-3" [disabled]="!notesForm.valid"
+                (click)="sendNotes()">Send</button>
+        </div>
+    </form>
+</div>

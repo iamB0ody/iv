@@ -1,0 +1,10 @@
+<div class="row" *ngIf="isAuthunticated==true">
+    <div class="col-lg-2  border-end side">
+        <app-sidebar></app-sidebar>
+    </div>
+    <div class="col-lg-10 col-md-12 col-sm-12">
+        <app-navbar></app-navbar>
+        <router-outlet></router-outlet>
+    </div>
+</div>
+<router-outlet *ngIf="isAuthunticated==false"></router-outlet>

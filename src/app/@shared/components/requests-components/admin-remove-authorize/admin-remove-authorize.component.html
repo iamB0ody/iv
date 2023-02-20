@@ -1,0 +1,57 @@
+<div class="container-fluid">
+    <p-toast></p-toast>
+    <div class="d-flex">
+        <a href="javaScript:void" routerLink="/all-users" class="Back ">
+            <i class="fa-solid fa-arrow-left "></i>
+        </a>
+        <div> <p class="title">All Authorized Reports {{fullName}}</p>
+    <img src="./assets/icons/dash.svg"></div></div>
+    <div class="example-container mat-elevation-z8" *ngIf="isEmpty===false">
+        <div [formGroup]="filterForm" class="filForm">
+            <mat-form-field>
+                <input matInput #filVal (keyup)="applyFilter(filVal)" placeholder="Filter" formControlName="Filter">
+            </mat-form-field>
+        </div>
+        <div>
+
+            <mat-table #table [dataSource]="dataSource">
+                <ng-container matColumnDef="id">
+                    <mat-header-cell *matHeaderCellDef>Id </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.reportId}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="tCode">
+                    <mat-header-cell *matHeaderCellDef>T Code </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.report.tCode}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="description">
+                    <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.report.description}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="ask">
+                    <mat-header-cell *matHeaderCellDef class="pl-4">Edit Authorize</mat-header-cell>
+                    <mat-cell *matCellDef="let element"> <button mat-button class="askButton"
+                            (click)="openDialog(element.reportId)">Edit Authorize</button>
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="remove">
+                    <mat-header-cell *matHeaderCellDef class="pl-4">Remove Report</mat-header-cell>
+                    <mat-cell *matCellDef="let element"> <button mat-button class="removeButton"
+                            (click)="removeAuth(element.reportId)">Remove Report</button>
+                    </mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+            <mat-paginator [length]="totalLength" [pageSize]="25" [pageSizeOptions]="[25,50,100]">
+            </mat-paginator>
+        </div>
+    </div>
+    <div class="messageDiv" *ngIf="isEmpty===true">
+        <div>
+            <i class="fa-solid fa-triangle-exclamation fs-2"></i> 
+        </div>
+        <h5 class="message">
+            {{fullName}} Not Authorized On Any Report
+        </h5>
+        </div>
+</div>

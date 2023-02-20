@@ -1,0 +1,90 @@
+@import '../../../../../styles.scss';
+$tableHeight: calc((100%) - (68px));
+
+.container-fluid {
+    background-color: rgb(233, 227, 227);
+    padding: 25px;
+    height: $tableHeight;
+    overflow: hidden;
+}
+
+.example-container {
+    background-color: #F3F3F5;
+    margin-top: 15px;
+    border-radius: 5px !important;
+}
+
+.userImage {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    border-radius: 5px;
+    padding: 2px;
+}
+
+.proceedButton {
+    border: none;
+    background-color: #13653f;
+    color: white;
+    border-radius: 2px;
+    padding: 4px;
+}
+
+.rejButton {
+    border: none;
+    background-color: #92051e;
+    color: white;
+    border-radius: 2px;
+    padding: 3px 5px 3px 5px;
+}
+
+
+
+.title {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 30px;
+    text-transform: capitalize;
+    color: #1E1838;
+    margin-bottom: -10px;
+}
+
+mat-form-field {
+    width: 35%;
+}
+
+.filForm {
+    padding-left: 5px;
+}
+
+.mat-column-status {
+    word-wrap: break-word !important;
+    white-space: unset !important;
+    margin-left: 8px !important;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+
+    word-break: break-word;
+
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+}
+.messageDiv
+{
+    
+    text-align: center!important;
+    font-family: 'Poppins'!important;
+    font-style: normal!important;
+    font-weight: 500!important;
+    font-size: 20px!important;
+    line-height: 30px!important;
+    text-transform: capitalize!important;
+    color: #1E1838!important;
+    margin-top: 35vh!important;
+        margin-bottom: auto!important;
+    
+}

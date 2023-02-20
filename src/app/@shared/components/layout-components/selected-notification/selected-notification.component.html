@@ -1,0 +1,19 @@
+<div class="container-fluid">
+    <div class="contentDiv">
+        <p *ngIf="notification?.sender">Sender : {{notification.sender?.userName}}</p>
+        <p *ngIf="!notification?.sender">Sender : Admin</p>
+        <p>Message : {{notification?.message}}</p>
+        <p>date : {{notification?.date}}</p>
+        <div class="d-flex btns">
+            <div *ngIf="notification?.sender">
+                <ng-container *ngIf="notification?.type==0 && ShProceed"><button mat-button class="proceedButton"
+                        routerLink="/respond-authorize">All Requests
+                    </button></ng-container>
+                <ng-container *ngIf="notification?.type==3"><button mat-button class="proceedButton"
+                        (click)=" resetDialog(notification.sender?.userName)">Reset
+                        Password</button></ng-container>
+            </div>
+            <button mat-button class="proceedButton allBtn" routerLink="/notifications">All Notifications</button>
+        </div>
+    </div>
+</div>

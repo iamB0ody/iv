@@ -1,0 +1,149 @@
+.container-fluid {
+    background-color: rgb(233, 227, 227);
+    padding: 16px 24px 16px 24px;
+    overflow: hidden;
+
+    .content {
+        width: 99%;
+        min-height: 90vh;
+        background-color: #FCFCFC;
+        margin: 16px 0px 16px 4px !important;
+        padding: 24px;
+    }
+
+
+
+}
+
+.excuteButton {
+    background-color: #1E1838 !important;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 25px;
+}
+
+.selectButton {
+    background-color: #FFFFFF !important;
+    color: #212529 !important;
+    border-color: #212529 !important;
+    margin-bottom: 25px;
+
+}
+
+.cancelButton {
+    margin-bottom: 25px;
+    background-color: #FFFFFF !important;
+    color: #dc3545 !important;
+    border-color: #dc3545 !important;
+
+}
+
+dx-load-indicator {
+    margin: 40vh 35vw;
+}
+
+.btn {
+    height: 40px;
+}
+
+
+// ********new ********************************
+body {
+
+    background: #FCFCFC;
+    /* primary color/primary 25% */
+
+    border: 1px solid #C6C5CD;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+}
+
+// angular material
+.mat-input-element {
+    // background-color: red !important;
+    border: 0px solid green !important;
+}
+
+.mat-form-field-infix {
+    top: -4px;
+    font-size: 12px;
+}
+
+.mat-form-field-appearance-legacy.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label,
+.mat-form-field-appearance-legacy.mat-form-field-can-float .mat-input-server:focus+.mat-form-field-label-wrapper .mat-form-field-label {
+    transform: translateY(-1.28125em) scale(0.75) perspective(100px) translateZ(0.001px);
+    width: fit-content;
+    background: #fcfcfc;
+    border: 25px;
+    padding: 0px 8px 0 8px;
+}
+
+.example-form {
+    padding: 20px 20px 20px;
+}
+
+.LeftStyle {
+    position: relative;
+    left: 10px;
+}
+
+p-calendar {
+    width: 90%;
+}
+
+.example-full-width {
+    width: 85%;
+    background: #FCFCFC;
+    border: 1px solid #8E8B9B;
+    border-radius: 5px;
+    padding-left: 10px;
+    height: 36px;
+}
+
+.mat-form-field-underline {
+    display: none;
+}
+
+
+.HelpIcon {
+    color: #1E1838;
+    position: relative;
+    top: -2px;
+    left: 12px;
+    font-size: 20px;
+}
+.helpBtnLoading{
+    margin-left: 8px;
+    position: relative;
+    top: 5px;
+}
+.HelpIconPop {
+    color: #1E1838;
+    margin-left: -20px;
+    font-size: 20px;
+    padding: 4px 0px 8px 2px;
+    background: #FCFCFC;
+    border: 1px solid #8E8B9B;
+    border-radius: 5px;
+
+}
+
+@media (max-width:590px) {
+    .HelpIcon {
+        display: none;
+    }
+
+    .example-full-width {
+        width: 100%;
+    }
+
+    .LeftStyle {
+        left: 0;
+    }
+}
+
+@media (max-width:660px) {
+    .SelectionDisplayNone {
+        display: none;
+    }
+}

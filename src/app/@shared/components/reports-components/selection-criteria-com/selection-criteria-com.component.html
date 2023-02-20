@@ -1,0 +1,187 @@
+<div class="container-fluid p-2" *ngIf="isLoaded">
+    <p-toast></p-toast>
+    <div class="content">
+        <h5>Selection Criteria</h5>
+        <!-- functions on report start-->
+        <div class="row">
+            <div class="d-flex col-12 justify-content-end">
+                <button type="button" class="btn btn-light btn-md btn-outline-dark  selectButton"><i
+                        style="margin: 0 8px 0px -8px" class="fa-solid fa-file-medical"></i>
+                    <span class="SelectionDisplayNone"> select report layout</span></button>
+                <button type="button" class="btn btn-primary excuteButton" (click)="ExcuteAndGetReportResult()">
+                    <i style="margin: 0 8px 0px -8px" class="fa-solid fa-play" *ngIf="isDataLoaded == false"></i>
+                    <span class="SelectionDisplayNone" *ngIf="isDataLoaded == false">
+                        excute report
+                    </span>
+                    <div *ngIf="isDataLoaded == true" class="spinner-grow" role="status" style="margin-top: -6px;">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </button>
+                <button type="button" class="btn  btn-outline-danger  cancelButton"><i style="margin: 0 8px 0px -8px"
+                        class="fa-solid fa-xmark"></i>
+                    <span class="SelectionDisplayNone" [routerLink]="['/all-reports']"
+                        routerLinkActive="router-link-active">
+                        cancel</span>
+                </button>
+                <helper-dialog *ngIf="HelperDetail" [HelperTableContent]="HelperTableContent"
+                    [HelperDetail]="HelperDetail" (messageEvent)="displayMessage($event)"></helper-dialog>
+            </div>
+        </div>
+     <!-- functions on report end-->
+
+        <div id="form-container">
+            <ng-container [formGroup]="selectionForm">
+                <!-- searchCriatrya Loop -->
+                <ng-container *ngFor="let item of allVariables;let i=index">
+                    <div class="row">
+                        <div class=" col-sm-11 col-md-7 ">
+                            <div class="row">
+                                <!-- item Name -->
+                                <div class="col-5 col-sm-12 col-md-5 mt-1">
+                                    <span class="">{{item.fieldName}}</span>
+                                </div>
+                                <!--/ item Name -->
+
+                                <!-- left From -->
+                                <div class=" col-sm-12 col-md-7 mr-3 mt-1 LeftStyle">
+
+                                    <!-- if selection is not Date && not month && not year left side-->
+                                    <mat-form-field class="example-full-width" *ngIf="item.type == 0  && item.fieldName != 'Month' && item.fieldName != 'Year'">
+                                        <input  style="border-radius:none" type="text" placeholder="{{'From'}}"
+                                            aria-label="'From'" matInput [matAutocomplete]="auto1" class="InputFRomTo"
+                                           (click)="GetHistory(item,'From',$event)" (change)="ChangeInput('input','From',$event,item)" >
+                                        <mat-autocomplete #auto1="matAutocomplete" [class]="'blue-bg'">
+                                            <mat-option *ngFor="let option of simpleOptions" [value]="option.value"
+                                                (click)="ChangeInput('delected','From',option,item)">
+                                                {{ option.value }}
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                    </mat-form-field>
+                                    <!-- /if selection is not Date -->
+
+                                     <!-- if selection is  Date-->
+                                    <mat-form-field *ngIf="item.type == 1 && item.fieldName != 'Month' &&  item.fieldName != 'Year'" class="example-full-width">
+                                        <input matInput [matDatepicker]="dp1" placeholder="Select Date"  [formControl]="getControl(item.fieldName+'From')"  (dateChange)="ChangeInput4('delected','From',item.fieldName+'From',item)" >
+                                        <mat-datepicker-toggle matSuffix [for]="dp1"></mat-datepicker-toggle>
+                                        <mat-datepicker #dp1  [ngModelOptions]="{standalone: true}"
+                                                        startView="multi-year"
+                                                        (yearSelected)="chosenYearHandler1(dp1)"
+                                                        (change)="ChangeInput3('delected','From',dp1,item)"
+                                                        panelClass="example-month-picker"
+                                                        >
+                                        </mat-datepicker>
+                                      </mat-form-field>
+                                      <!-- Year -->
+                                      <mat-form-field *ngIf="item.fieldName == 'Year'" class="example-full-width">
+                                        <input  style="border-radius:none" type="text" placeholder="{{'From'}}"
+                                            aria-label="'From'" matInput [matAutocomplete]="auto1" class="InputFRomTo"
+                                           (click)="GetHistory(item,'From',$event)" (change)="ChangeInput('input','From',$event,item)" >
+                                        <mat-autocomplete #auto1="matAutocomplete" [class]="'blue-bg'">
+                                            <mat-option *ngFor="let option of simpleOptions" [value]="option.value"
+                                                (click)="ChangeInput('delected','From',option,item)">
+                                                {{ option.value }}
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                      </mat-form-field>
+                                    <!--if selection is moth  -->
+                                    <mat-form-field *ngIf=" item.fieldName == 'Month'" class="example-full-width">
+                                        <mat-label>Month</mat-label>
+                                   <select matNativeControl required [(ngModel)]="selectedOption1" [ngModelOptions]="{standalone: true}" (click)="ChangeInput3('delected','From',selectedOption1,item)">
+                                    <ng-container *ngFor="let month of Months" >    <option   [value]="month">
+                                   {{ month }}
+                                    </option></ng-container>
+                                    </select>   
+                                      </mat-form-field>
+                                    <!-- help btn Left -->
+                                    <a href="javaScript:void"  class="HelpIcon"
+                                        *ngIf="(item.HelpFullLeft && isDataLoaded == false)">
+                                        
+                                        <i class="fa-solid fa-arrow-up-right-from-square " (click)="HelpFull(item)"></i>
+                                    </a>
+                                    <div *ngIf=" item.HelpFullLeft &&  isDataLoaded == true" class="spinner-grow helpBtnLoading" role="status"
+                                        >
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                    <!--/ help btn Left-->
+                                </div>
+                                <!--/ left From -->
+                            </div>
+                        </div>
+                        <div class=" col-sm-11 col-md-4 ">
+                            <!--right From -->
+                            <div class=" col-sm-12 col-md-12 mt-1">
+                                <!-- if selection is not Date && not month && not year-->
+                                <mat-form-field class="example-full-width" *ngIf="item.type == 0 && item.fieldName != 'Month' && item.fieldName != 'Year'"
+                                    (click)="GetHistory(item,'To',$event)">
+                                    <input type="text" placeholder="{{'To'}}" aria-label="'To'" matInput
+                                        [matAutocomplete]="auto1" class="InputFRomTo"
+                                        (change)="ChangeInput('input','To',$event,item)" >
+                                    <mat-autocomplete #auto1="matAutocomplete" [class]="'blue-bg'">
+                                        <mat-option *ngFor="let option of simpleOptions" [value]="option.value"
+                                            (click)="ChangeInput('delected','To',option,item)">
+                                            {{ option.value }}
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                </mat-form-field>
+                                <!--if selection is Date  -->
+                                <mat-form-field *ngIf="item.type == 1 && item.fieldName != 'Month' &&  item.fieldName != 'Year'" class="example-full-width">
+                                    <input matInput [matDatepicker]="dp1" placeholder="Select Date"  [formControl]="getControl(item.fieldName+'To')" (dateChange)="ChangeInput4('delected','To',item.fieldName+'To',item)" >
+                                    <mat-datepicker-toggle matSuffix [for]="dp1"></mat-datepicker-toggle>
+                                    <mat-datepicker #dp1  [ngModelOptions]="{standalone: true}"
+                                                    startView="multi-year"
+                                                    (yearSelected)="chosenYearHandler1(dp1)"
+                                                    (change)="ChangeInput3('delected','To',dp1,item)"
+                                                    panelClass="example-month-picker"
+                                                    >
+                                    </mat-datepicker>
+                                  </mat-form-field>
+                                   <!-- Year -->
+                                   <mat-form-field *ngIf="item.fieldName == 'Year'" class="example-full-width">
+                                    <input  style="border-radius:none" type="text" placeholder="{{'To'}}"
+                                    aria-label="'From'" matInput [matAutocomplete]="auto1" class="InputFRomTo"
+                                   (click)="GetHistory(item,'To',$event)" (change)="ChangeInput('input','To',$event,item)" >
+                                <mat-autocomplete #auto1="matAutocomplete" [class]="'blue-bg'">
+                                    <mat-option *ngFor="let option of simpleOptions" [value]="option.value"
+                                        (click)="ChangeInput('delected','To',option,item)">
+                                        {{ option.value }}
+                                    </mat-option>
+                                </mat-autocomplete>
+                                  </mat-form-field>
+                                <!--if selection is moth  -->
+                                <mat-form-field *ngIf=" item.fieldName == 'Month'" class="example-full-width">
+                                    <mat-label>Month</mat-label>
+                               <select matNativeControl required [(ngModel)]="selectedOption2" [ngModelOptions]="{standalone: true}" (click)="ChangeInput3('delected','To',selectedOption2,item)">
+                                <ng-container *ngFor="let month of Months" >  
+                                      <option  [value]="month" >
+                               {{ month }}
+                                </option></ng-container>
+                                </select>  
+                                  </mat-form-field> 
+                                  <!-- right help btn -->
+                                <a href="javaScript:void" class="HelpIcon" 
+                                    *ngIf="(item.HelpFullRight && item.fieldName != 'Month') && (isDataLoaded == false)" >
+                                    <i class="fa-solid fa-arrow-up-right-from-square " (click)="HelpFull(item)"></i>
+                                </a>
+                                <div  *ngIf="(item.HelpFullRight && item.fieldName != 'Month') &&(isDataLoaded == true)" class="spinner-grow helpBtnLoading" role="status"
+                                   >
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                                <!--/ right help btn -->
+                            </div>
+                            <!--/ right From -->
+                        </div>
+                        <div class="col-md-1 col-sm-1 mt-1 text-right SelectionDisplayNone">
+                            <a class="text-right" href="javaScript:void" class="HelpIconPop">
+                                <img src="../../../../../assets/icons/icons/icon.svg" alt="" srcset="">
+                            </a>
+                        </div>
+                    </div>
+                    <br>
+                </ng-container>
+                <!-- searchCriatrya Loop -->
+            </ng-container>
+        </div>
+    </div>
+
+</div>
+<dx-load-indicator *ngIf="!isLoaded" id="large-indicator" height="60" width="60"></dx-load-indicator>

@@ -1,0 +1,19 @@
+mat-dialog-actions {
+    .close {
+        background-image: linear-gradient(#92051e, #b8212d);
+        min-width: 78px;
+        border: none;
+
+
+    }
+
+    .complete {
+        background-image: linear-gradient(#1E1838, #2b234e);
+        min-width: 78px;
+        border: none;
+    }
+
+    width:200px;
+    margin-left: auto;
+    margin-right:auto;
+}

@@ -1,0 +1,372 @@
+body {
+    background-color: #e9ecef;
+}
+
+.container-fluid {
+    padding: 50px;
+    overflow: hidden;
+
+    .scroll {
+        // height: 100%;
+        // overflow: scroll;
+
+        .Content {
+            width: max-content;
+            min-width: 100%
+        }
+    }
+}
+
+
+
+.content {
+    background-color: #ffffff;
+    overflow: scroll;
+
+    .Genralcontent {
+        background-color: #ffffff;
+        overflow: scroll;
+        // max-height: 516px;
+        min-height:100%!important;
+        p-paginator {
+            position: fixed;
+            bottom: 0px;
+            width: 81%;
+            padding: 12px 1px 16px 10px;
+            height: 68px;
+            right: 22px;
+        }
+        .p-datatable .p-datatable-loading-icon {
+            font-size: 2rem;
+            position: absolute;
+            top: 210px;
+            left: 460px;
+        }
+    }
+}
+
+.FitterGenral {
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.FillterSection {
+    ul {
+        border: none;
+        box-shadow: none;
+        width: 100%;
+
+        li {
+
+
+            font-size: 14px;
+            margin: 0px;
+
+            a {
+                border: 1px solid rgba(104, 102, 102, 0.3);
+                border-radius: 5px;
+                color: black;
+                background: #FFFFFF;
+
+            }
+
+            a:hover {
+                background: #1E1838;
+                color: white;
+                border-radius: 5px;
+
+                .icon {
+                    color: white;
+                }
+            }
+        }
+    }
+
+    .icon {
+        font-weight: 900;
+        margin-right: 15px;
+        margin-top: 4px;
+        color: #1E1838;
+    }
+
+}
+
+nav {
+    box-shadow: none;
+    background-color: #fff !important;
+}
+
+/* width */
+// ::-webkit-scrollbar {
+//     width: 8px !important;
+//     height: 8px;
+// }
+ 
+/* Track */
+// ::-webkit-scrollbar-track {
+//     background: #f1f1f1;
+// }
+
+/* Handle */
+// ::-webkit-scrollbar-thumb {
+//     background: #777;
+// }
+
+/* Handle on hover */
+// ::-webkit-scrollbar-thumb:hover {
+//     background: #190d50;
+// }
+
+#gridContainer {
+    // max-height: 800px;
+}
+
+.options {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: rgba(191, 191, 191, 0.15);
+    position: relative;
+}
+
+.caption {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.option-container {
+    display: flex;
+    margin: 0 auto;
+    justify-content: space-between;
+}
+
+.option {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.option-caption {
+    white-space: nowrap;
+    margin: 0 8px;
+}
+
+// primng design
+.p-fluid .p-inputtext {
+    height: 26px;
+}
+
+.p-datatable .p-datatable-thead>tr>th {
+    font-weight: 500;
+
+}
+
+.tableHeader {
+    color: #495057;
+}
+
+.tableHeader:hover {
+    color: #190d50;
+
+    i {
+        font-weight: 700;
+        font-size: 16px;
+    }
+}
+
+.SelectTableHeader {
+    height: 46px;
+    padding: 10px 7px;
+    border-radius: 8px;
+
+    .SelectButton {
+        float: right;
+        background-color: #190d50;
+        color: white;
+        height: 30px !important;
+        margin-top: -2px !important;
+    }
+    
+   
+
+    .DangerSelectButton {
+        float: right;
+        background-color: #c82333;
+        color: white;
+        height: 30px !important;
+        margin-top: -2px !important;
+    }
+
+}
+ .UpdateButton {
+        float: right;
+        background-color: #0d6efd!important;
+        color: white!important;
+        height: 30px !important;
+        margin-top: -2px !important;
+        margin-right:5px;
+    }
+    .deleteButton
+    {
+        float: right;
+        background-color:#c82333!important;
+        color: white!important;
+        height: 30px !important;
+        margin-top: -2px !important;
+    }
+.SelectTableHeader:hover {
+    box-shadow: 1px 0px 10px 0px darkgrey;
+}
+
+.p-datatable .p-datatable-tbody>tr {
+    background-color: #F3F3F5 !important;
+}
+
+.p-datatable {
+    .p-datatable-tbody>tr>td {
+        text-align: left;
+        border: 1px solid white;
+        border-width: 8px 0 1px 0;
+        padding: 10px 1rem;
+    }
+
+    .p-datatable-thead {
+        tr>th {
+            padding: 16px 0px 16px 15px !important
+        }
+    }
+}
+
+.p-datatable .p-datatable-thead>tr>th {
+    border-width: 0px 0 0px 0;
+    /* font-weight: 600; */
+    position: relative;
+    color: #495057;
+    background: #DDDDE1;
+    transition: box-shadow 0.2s;
+}
+
+.CloseSearchReport {
+    font-size: 15px;
+    padding: 0px 8px 0 7px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 20px !important;
+    right: 12px !important;
+    top: 22px !important;
+    height: 20px !important;
+    border-radius: 50%;
+    transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+    background-color: rgb(239 39 39 / 75%);
+
+}
+
+.p-column-filter-clear-button {
+    // display: none !important;
+    visibility: hidden !important
+}
+
+.p-column-filter-row .p-column-filter-menu-button,
+.p-column-filter-row .p-column-filter-clear-button {
+    // display: none;
+}
+
+// end primng design  #DDDDE1;
+// .p-paginator {
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     flex-wrap: wrap;
+//     position: fixed;
+//     bottom: 0px;
+//     right: 30px;
+//     width: 79%;
+//     z-index: 1000;
+//     text-align: center;
+// }
+
+// Sub
+.Sub {
+    width: 79%;
+    background: #56526A;
+    border-bottom: 0.914898px solid #F5F5F5;
+    height: 50px;
+    position: fixed;
+    bottom: -1px;
+    right: 30px;
+    z-index: 100;
+    color: white;
+
+    button {
+        position: absolute;
+        right: 6px;
+        top: 6px;
+    }
+
+    p {
+        margin: 16px 0;
+    }
+
+}
+
+// end Sub
+// new 
+body {
+
+    /* primary color/primary 25% */
+
+    border: 1px solid #C6C5CD;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+}
+
+.dx-header-row {
+    background-color: red !important;
+}
+
+.Back {
+    color: black;
+
+    span {
+        margin-left: 10px;
+    }
+}
+
+
+@media (min-width: 915px) {
+    .ReportDisplayNone {
+        display: none;
+    }
+}
+.layName
+{
+    width:80%;
+    border-radius:5px;
+    margin:0px 20px 20px 5px;
+    height: 35px;
+}
+.sLayout
+{
+    cursor: pointer;
+    margin-top:20px;
+    margin-bottom:20px;
+    background-color: #afaeae;
+    padding:15px;
+    display: flex;
+    justify-content: space-between;
+}
+.paginator
+{
+    // text-align: center!important;
+    // padding-left:45%;
+    justify-content: center!important;
+}
+i{
+    cursor: pointer;
+}
+.disabled {
+    cursor: none;
+    opacity: .25;
+    pointer-events: none;
+  }

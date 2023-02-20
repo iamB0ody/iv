@@ -1,0 +1,15 @@
+* {
+    padding: 0px;
+    margin: 0px;
+}
+
+@media(max-width:990px) {
+    .side {
+        display: none;
+
+    }
+}
+
+.side {
+    min-height: 100vh;
+}
