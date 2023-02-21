@@ -77,8 +77,8 @@ export class SelectionCriteriaComComponent implements OnInit {
       this.FormatedData.push(item)
       // check input type from left side or from right side to update or add new 
       this.FormatedData.forEach((element: any, index: any) => {
-        if (element.HelpFullLeft === true && index) {
-        }
+        // if (element.HelpFullLeft === true && index) {
+        // }
       });
       // end check input type from left side or from right side to update or add new 
     }
@@ -88,8 +88,8 @@ export class SelectionCriteriaComComponent implements OnInit {
       this.FormatedData.push(item)
       // end check input type from left side or from right side to update or add new 
       this.FormatedData.forEach((element: any, index: any) => {
-        if (element.HelpFullRight === true && index) {
-        }
+        // if (element.HelpFullRight === true && index) {
+        // }
       });
       // end check input type from left side or from right side to update or add new 
     }
@@ -196,11 +196,6 @@ export class SelectionCriteriaComComponent implements OnInit {
   // help button
   HelpFull(e: Event) {
     this.HelperDetail = e
-    // this.HelperTableContent = [
-    //   { "bukrss": "EG01", "isla": "EG", "mog": "AR" },
-    //   { "bukrss": "MS01", "isla": "EG", "mog": "AR" },
-    //   { "bukrss": "SA", "isla": "EG", "mog": "AR" },
-    // ]
     this.isDataLoaded = true
     this.reportService.GetHelpButton(this.HelperDetail.fieldName).subscribe((data) => {
       this.isDataLoaded = false
@@ -275,7 +270,7 @@ export class SelectionCriteriaComComponent implements OnInit {
 
     // this.simpleOptions = [...this.simpleOptionsFakedata.data]
     if (Side == 'From') {
-      item.HelpFullLeft = true
+      item.HelpFullLeft = true ;
     } else {
       item.HelpFullRight = true
     }
@@ -284,7 +279,9 @@ export class SelectionCriteriaComComponent implements OnInit {
   historyFormatedData: any[] = []
   isDataLoaded: any = false
   ExcuteAndGetReportResult() {
+    
     var unique = [...new Set(this.FormatedData)];
+    
 
     this.isDataLoaded = true
     if (unique.length > 0) {
@@ -338,9 +335,7 @@ export class SelectionCriteriaComComponent implements OnInit {
     // ReportId: number, TechnicalName: string, Value: any
     this.reportService.PostSelectionHistory(this.historyFormatedData).subscribe((data: any) => {
       this.reportService.reportData=data;
-            // this.isDataLoaded = false
-      // this.router.navigate([`result/${this.RouterId}`])
-      // this.router.navigate([`result/${this.RouterId}`])
+        
     }
     , (err: any) => {
       // this.isDataLoaded = false
@@ -356,12 +351,7 @@ export class SelectionCriteriaComComponent implements OnInit {
 
   }
   ChangeInput2(type: string, Side: any, event: any, item: any,val:any) {
-    //this.historyFormatedData.push(val)
-    // send Indicator 0 For make it For Equal in backend
-    // this.FormatedData=[];
-// this.wesam=event;
-    // End send Indicator 0 For make it For Equal in backend
-    // check input type from left side or from right side
+    
    if(val)
    {
     if (Side == 'From') {

@@ -23,12 +23,13 @@
             aria-describedby="search-addon" (keyup)="getReports(search)" #search/>
           <img src="./assets/icons/search.svg" class="searchIcon">
         </form>
-        <mat-menu  #menu0="matMenu" >
-         <div [routerLink]="['/selection-criteria/',rep.tCode]" *ngFor="let rep of allReports" style="height:50px;margin-top:8px;background-color:#F3F3F5;border-radius:5px;margin-left:10px;margin-right:10px;cursor: pointer;padding-top:15px;padding-left:10px;">
-        <p>
+        <mat-menu  #menu0="matMenu">
+          <ng-container *ngFor="let rep of allReports ; let x=index">
+         <div *ngIf="x < 8 && allReports" [routerLink]="['/selection-criteria/',rep.tCode]"  style="height:50px;margin-top:8px;background-color:#F3F3F5;border-radius:5px;margin-left:10px;margin-right:10px;cursor: pointer;padding-top:15px;padding-left:10px;">
+        <p >
           {{rep.tCode}}
         </p>
-         </div>
+         </div></ng-container>
         </mat-menu>
       </li>
       
