@@ -15,6 +15,9 @@ export class ReportService {
   private domain = environment.baseUrl;
   token: any;
   reportData:any;
+  selectionCriteria:Array<any> = [];
+  help:any=false;
+  multipleHelp:any=false;
   constructor(private http: HttpClient) { }
   getFavoriteReports(pgNum:number): Observable<IResponse> {
     this.token = localStorage.getItem('token');

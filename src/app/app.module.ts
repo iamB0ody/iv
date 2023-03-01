@@ -77,6 +77,14 @@ import { PaginatorModule } from 'primeng/paginator';
 import { ClipboardModule } from 'ngx-clipboard';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MultipleHelperDialogComponent } from './@shared/components/multiple-helper-dialog/multiple-helper-dialog.component';
+import { TabViewModule } from 'primeng/tabview';
+import { MultipleSingleValuesComponent } from './@shared/components/multiple-helper-components/multiple-single-values/multiple-single-values.component';
+import { MultipleRangesComponent } from './@shared/components/multiple-helper-components/multiple-ranges/multiple-ranges.component';
+import { ExecludeRangesComponent } from './@shared/components/multiple-helper-components/execlude-ranges/execlude-ranges.component';
+import { ExecludeSingleValuesComponent } from './@shared/components/multiple-helper-components/execlude-single-values/execlude-single-values.component';
+import { ZfrActComponent } from './@shared/components/reports-components/spcial-reports/zfr-act/zfr-act.component';
+
 // import { CalendarModule } from 'primeng/calendar';
 
 @NgModule({
@@ -106,10 +114,10 @@ import { MatNativeDateModule } from '@angular/material/core';
     NotificationsComponent,
     SelectedNotificationComponent, AdRemoveAuthorizeDialogComponent,
     AdminReasonDialogComponent, AdminRemoveAuthorizeComponent,
-    HelperDialogComponent, AdminNotesDialogComponent, AdAddAuthorizeDialogComponent
+    HelperDialogComponent, AdminNotesDialogComponent, AdAddAuthorizeDialogComponent, MultipleHelperDialogComponent, MultipleSingleValuesComponent, MultipleRangesComponent, ExecludeRangesComponent, ExecludeSingleValuesComponent, ZfrActComponent
 
   ],
-  imports: [MatNativeDateModule,ClipboardModule,MatInputModule, MatSelectModule, MatPaginatorModule, MatTableModule, MatFormFieldModule, MatDialogModule, MatListModule, MatSidenavModule, MatIconModule, ReactiveFormsModule, DxLoadIndicatorModule,
+  imports: [TabViewModule,MatNativeDateModule,ClipboardModule,MatInputModule, MatSelectModule, MatPaginatorModule, MatTableModule, MatFormFieldModule, MatDialogModule, MatListModule, MatSidenavModule, MatIconModule, ReactiveFormsModule, DxLoadIndicatorModule,
     BrowserModule,
     AppRoutingModule, MatMenuModule, NoopAnimationsModule, MatProgressSpinnerModule, HttpClientModule
     , DxDrawerModule, DxScrollViewModule, DxTreeViewModule, DxButtonModule, DxDataGridModule,

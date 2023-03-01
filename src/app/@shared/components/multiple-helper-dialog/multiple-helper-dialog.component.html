@@ -1,0 +1,31 @@
+<div *ngIf="loadPage">
+<p-dialog [closable]="false" [(visible)]="MultipleHelperDetail.DialogModule" [modal]="true" [style]="{width: '80vw'}"
+    [maximizable]="true" [baseZIndex]="10000" [draggable]="true" [resizable]="true">
+    <!-- digram header  -->
+    <p-header>{{MultipleHelperDetail?.fieldName}}</p-header>
+    <p-body>
+        <div class="card">
+            <p-tabView>
+              <p-tabPanel header="Multiple Single Values">
+                <app-multiple-single-values [criteriaField]="MultipleHelperDetail?.fieldName" (messageEvent)="changeSelection($event)"></app-multiple-single-values>
+              </p-tabPanel>
+              <p-tabPanel header="Multiple Ranges">
+                <app-multiple-ranges [criteriaField]="MultipleHelperDetail?.fieldName"></app-multiple-ranges>
+              </p-tabPanel>
+              <p-tabPanel header="EXeclude Single Values">
+                <app-execlude-single-values [criteriaField]="MultipleHelperDetail?.fieldName"></app-execlude-single-values>
+              </p-tabPanel>
+              <p-tabPanel  [headerStyle]="{'color':'red'}" header="EXeclude Ranges">
+               <app-execlude-ranges [criteriaField]="MultipleHelperDetail?.fieldName"></app-execlude-ranges>
+              </p-tabPanel>
+            </p-tabView>
+          </div>
+          
+    </p-body>
+       <ng-template pTemplate="footer">
+        <button icon="pi pi-times" class="btn conBtn mt-3" (click)="MultipleHelperDetail.DialogModule = false;closeDialog()"
+            label="Close">Confirm All</button>
+    </ng-template>
+    <!--/ close -->
+
+</p-dialog></div>

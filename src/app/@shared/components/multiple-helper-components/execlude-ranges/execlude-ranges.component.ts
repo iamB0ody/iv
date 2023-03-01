@@ -1,6 +1,6 @@
 
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { ReportService } from 'src/app/@core/services/http/report.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
@@ -8,14 +8,11 @@ import { MatDatepicker } from '@angular/material/datepicker';
 import { UserService } from 'src/app/@core/services/http/user.service';
 
 @Component({
-  selector: 'app-selection-criteria-com',
-  templateUrl: './selection-criteria-com.component.html',
-  styleUrls: ['./selection-criteria-com.component.scss'],
-  encapsulation: ViewEncapsulation.None,
-  providers: [MessageService]
-
+  selector: 'app-execlude-ranges',
+  templateUrl: './execlude-ranges.component.html',
+  styleUrls: ['./execlude-ranges.component.scss']
 })
-export class SelectionCriteriaComComponent implements OnInit {
+export class ExecludeRangesComponent {
   Months: any[] = [
     '01','02','03','04','05','06','07','08','09','10','11','12'
   ];
@@ -40,28 +37,20 @@ export class SelectionCriteriaComComponent implements OnInit {
   datesArr:any[]=[];
   selectionForm!:FormGroup;
   ////////////////////multiple///////////
-  MultipleHelperDetail:any;
+  MultipleHelperDetail: any;
   MultipleHelperTableContent: any;
-  criteriaField:any;
+  @Input() criteriaField: any;
+  displayedTable:any[]=[];
+  displayedTable2:any[]=[];
   constructor(private userService:UserService,
     private activatedRoute: ActivatedRoute,
     private reportService: ReportService,
     public messageService: MessageService,
-    private router: Router,private fb: FormBuilder) { 
-
-      this.activatedRoute.paramMap.subscribe((params: ParamMap) => {
-        this.RouterId = params.get("id");
-        this.GetSelectionCriteria(this.RouterId);
-      });
-    }
+    private router: Router,private fb: FormBuilder) { }
   // * life cycle hooks
   ngOnInit(): void {
     this.initData();
     this.GetSelectionCriteria(this.RouterId);
-    this.reportService.selectionCriteria=[];
-    this.criteriaField=localStorage.getItem('criteriaField');
-    this.HelperDetail=this.reportService.help;
-    this.MultipleHelperDetail=this.reportService.multipleHelp;
   }
   chosenYearHandler1(dp: any) {
     this.dValue1=dp;
@@ -209,15 +198,14 @@ export class SelectionCriteriaComComponent implements OnInit {
   // Get Input History  
   // help button
   HelpFull(e: Event) {
-    this.HelperTableContent=null;
     this.HelperDetail = e
     this.isDataLoaded = true
-      this.reportService.GetHelpButton(this.HelperDetail.fieldName).subscribe((data) => {
+    this.reportService.GetHelpButton(this.HelperDetail.fieldName).subscribe((data) => {
       this.isDataLoaded = false
+
       this.HelperTableContent = data
-      this.reportService.help=true;
-      this.HelperDetail.DialogModule = this.reportService.help
-    // this.MultipleHelperDetail.DialogModule =false
+      this.HelperDetail.DialogModule = true
+
     }, (err: any) => {
       this.isDataLoaded = false
       this.HelperTableContent = []
@@ -227,34 +215,41 @@ export class SelectionCriteriaComComponent implements OnInit {
     
   }
   ////////////////////////////////multiple help////////////////////////////////////////
-  multipleHelper(e: any) {
-    this.MultipleHelperTableContent=null;
-    this.MultipleHelperDetail = e;
-    localStorage.setItem('criteriaField',e.fieldName);
-    this.isDataLoaded = true;
-    // this.reportService.GetHelpButton(this.MultipleHelperDetail.fieldName).subscribe((data) => {
-      
-    //   // this.HelperDetail.DialogModule=false
-    // }, (err: any) => {
-    //   this.isDataLoaded = false
-    //   this.MultipleHelperTableContent = []
-    //   this.MultipleHelperDetail.DialogModule = false
-    // });
+  multipleHelper(e: Event) {
+
+  
+    this.HelperDetail = e
+    this.isDataLoaded = true
+    this.reportService.GetHelpButton(this.HelperDetail.fieldName).subscribe((data) => {
+      this.isDataLoaded = false
+
+      this.HelperTableContent = data
+      this.HelperDetail.DialogModule = true
+
+    }, (err: any) => {
+      this.isDataLoaded = false
+      this.HelperTableContent = []
+      this.HelperDetail.DialogModule = false
+    });
     
     
-    this.isDataLoaded = false;
-     this.MultipleHelperTableContent = []
-      this.MultipleHelperDetail.DialogModule = true
-      this.reportService.multipleHelp=true;
-      this.MultipleHelperDetail.DialogModule = this.reportService.multipleHelp;
+    
   }
   // end help button
 
   // ***************************Call API Data*************************************
   // get Section criteria
   GetSelectionCriteria(code: string) {
+    this.allVariables=[]
     this.reportService.getSelectedReport(code).subscribe((data: any) => {
-      this.allVariables = data;
+      for(let j=0;j <data.length;j++)
+      {
+        if(data[j].fieldName==this.criteriaField )
+     {
+       this.allVariables.push(data[j])
+      }
+      }
+      // this.allVariables = data;
      
       for(let i=0;i<this.allVariables.length;i++)
       {
@@ -316,52 +311,45 @@ export class SelectionCriteriaComComponent implements OnInit {
   historyFormatedData: any[] = []
   isDataLoaded: any = false
   ExcuteAndGetReportResult() {
-    // this.reportService.selectionCriteria.push(this.FormatedData);
-    // var x=this.reportService.selectionCriteria
-    // console.log(this.reportService.selectionCriteria);
     
     var unique = [...new Set(this.FormatedData)];
-    this.isDataLoaded = true
-    if (unique.length > 0 || this.reportService.selectionCriteria.length > 0) {
-      unique.map((data:any) => {
+    
+    if (this.displayedTable.indexOf("From " +unique[0].Low) === -1) 
+    this.displayedTable.push("From " + unique[0].Low)
+    if (this.displayedTable2.indexOf("To " +unique[0].High) === -1) 
+    this.displayedTable2.push("To " + unique[0].High)
+    // this.isDataLoaded = true
+    if (unique.length > 0) {
+      unique.map(data => {
         data.Indicator = (data.High && data.Low) ? 2 : data.Indicator //Between, //2
         data.Indicator = (data.High && !data.Low) ? 10 : data.Indicator //less than  10
         data.Indicator = (data.Low && !data.High) ? 0 : data.Indicator // sEqual, //0
         data.Low = data.Low ? data.Low : []
         data.High = data.High ? data.High : []
       })
-      // console.log("service"+Object.values(this.reportService.selectionCriteria[0]));
-      // console.log("service"+Object.values(this.reportService.selectionCriteria[1]));
-      // console.log("service"+Object.values(this.reportService.selectionCriteria[2]));
-      
-      for(let i=0;i<this.reportService.selectionCriteria.length;i++)
-      {
-       unique.push(this.reportService.selectionCriteria[i])
-       setTimeout(() => {
-       // console.log(this.reportService.selectionCriteria[i]);
-        
-       }, 2000);
-      }
-      this.reportService.executeReport(unique, 1, 10000, this.RouterId).subscribe((data: any) => {
-        this.isDataLoaded = false
-       this.reportService.reportData=data;
-        localStorage.setItem('SelectionCriteria', JSON.stringify(unique));
-        this.router.navigate([`result/${this.RouterId}`])
+    //   this.reportService.executeReport(unique, 1, 10000, this.RouterId).subscribe((data: any) => {
+    //     this.isDataLoaded = false
+    //    this.reportService.reportData=data;
+    //     localStorage.setItem('SelectionCriteria', JSON.stringify(unique));
+    //     this.router.navigate([`result/${this.RouterId}`])
 
-      }, (err: any) => {
-        if (Number(err.status) === 401 || err.statusText == 'Unauthorized') {
-          this.userService.userLogout();
-        }
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: `${err.error}` });
-        this.isDataLoaded = false
-        this.initData();
-    this.GetSelectionCriteria(this.RouterId);
-    this.FormatedData=[];
+    //   }, (err: any) => {
+    //     if (Number(err.status) === 401 || err.statusText == 'Unauthorized') {
+    //       this.userService.userLogout();
+    //     }
+    //     this.messageService.add({ severity: 'error', summary: 'Error', detail: `${err.error}` });
+    //     this.isDataLoaded = false
+    //     this.initData();
+    // this.GetSelectionCriteria(this.RouterId);
+    // this.FormatedData=[];
         
-      });
+    //   });
+    this.reportService.selectionCriteria.push(unique)
+    
+    unique=[]
     } else {
-      this.isDataLoaded = false
-      this.messageService.add({ severity: 'error', summary: 'Please Select Criteria', detail: 'Select Your Search Criteria Please' });
+      // this.isDataLoaded = false
+      this.messageService.add({ severity: 'error', summary: 'Add Values', detail: 'Select Your Values Please' });
     }
 
 
@@ -395,64 +383,65 @@ export class SelectionCriteriaComComponent implements OnInit {
     });
     // go to result  this.router.navigate([`result/${this.RouterId}`])
   }
-  displayMessage(ev: any) {  
-    
+  displayMessage(ev: any) {    
     this.ChangeInput2('input',this.variantSide,this.variantEvent,this.variantItem,ev)
-    this.HelperDetail=false;
-    this.MultipleHelperDetail=false;
-  
+    // this.HelperDetail.technicalName=ev
+
   }
   ChangeInput2(type: string, Side: any, event: any, item: any,val:any) {
     
-   if(val && val!='done')
-   {
-    if (Side == 'From') {
-      // item.Indicator = 9
-      item.Low =[val] 
-      event.target.value= val
-      this.FormatedData.push(item)
-      // check input type from left side or from right side to update or add new 
-      this.FormatedData.forEach((element: any, index: any) => {
-        // element.HelpFullRight = false;
-        if (element.HelpFullLeft === true && index) {
-          // this.FormatedData.splice(index, 1);
-        }
-      });
-      // end check input type from left side or from right side to update or add new 
-
-
-    } 
-
-    else {
-      //this.historyFormatedData.push(val)
-      item.High =[val] 
-      event.target.value= val
-      this.FormatedData.push(item)
-      // end check input type from left side or from right side to update or add new 
-      this.FormatedData.forEach((element: any, index: any) => {
-        // element.HelpFullLeft = false;
-        if (element.HelpFullRight === true && index) {
-          // this.FormatedData.splice(index, 1);
-        }
-      });
-      // end check input type from left side or from right side to update or add new 
-
-    }
-   // end  check input type from left side or from right side
-
-    this.ValidateInput(item)
-   
-
-   }
-   else if("done"){
+    if(val && val!='done'  )
+    {
+     if (Side == 'From') {
+       // item.Indicator = 9
+       item.Low =[val] 
+       event.target.value= val
+       this.FormatedData.push(item)
+       // check input type from left side or from right side to update or add new 
+       this.FormatedData.forEach((element: any, index: any) => {
+         // element.HelpFullRight = false;
+         if (element.HelpFullLeft === true && index) {
+           // this.FormatedData.splice(index, 1);
+         }
+       });
+       // end check input type from left side or from right side to update or add new 
+ 
+ 
+     } 
+ 
+     else {
+       //this.historyFormatedData.push(val)
+       item.High =[val] 
+       event.target.value= val
+       this.FormatedData.push(item)
+       // end check input type from left side or from right side to update or add new 
+       this.FormatedData.forEach((element: any, index: any) => {
+         // element.HelpFullLeft = false;
+         if (element.HelpFullRight === true && index) {
+           // this.FormatedData.splice(index, 1);
+         }
+       });
+       // end check input type from left side or from right side to update or add new 
+ 
+     }
+    // end  check input type from left side or from right side
+ 
+     this.ValidateInput(item)
     
+ 
+    }
+    else if("done"){
+     
+    }
+    else{
+     this.isLoaded=true;
+    } 
+     // log data
+   
    }
-   else{
-    this.isLoaded=true;
-   }
-    // log data
   
-  }
-  
-  
+   removeItem(id:any)
+  {
+this.displayedTable.splice(id,1);  } 
 }
+ 

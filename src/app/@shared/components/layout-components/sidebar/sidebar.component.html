@@ -17,10 +17,10 @@
                         <ng-container *ngIf="isFav" class="mt-1" (click)="openFav();getFavUserReports()">Favorite Reports</ng-container>
                         <ng-container *ngIf="!isFav" class="mt-1" (click)="openFav();getFavUserReports()">No Favorites</ng-container>
                     </span>
-                    <i class="fa-solid fa-angle-down menu-button" [ngClass]="{'rotated' : showSubmenu}"
-                        *ngIf="isExpanded || isShowing"></i>
+                    <!-- <i class="fa-solid fa-angle-down menu-button" [ngClass]="{'rotated' : showSubmenu}"
+                        *ngIf="isExpanded || isShowing"></i> -->
                 </mat-list-item>
-                <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
+                <!-- <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
                     <ng-container *ngFor="let rep of favReports" >
                         <a mat-list-item href="..." class="favReport"  [routerLink]="['/selection-criteria/',rep.tCode]">
                             <img src="./assets/icons/report.svg" class="mainListImg img1" width="15" height="20">
@@ -28,7 +28,7 @@
                             {{rep.tCode}}
                         </a>
                     </ng-container>
-                </div>
+                </div> -->
             </mat-nav-list>
             <!-- <mat-nav-list (click)="openFav()">
             <mat-list-item (click)="showSubmenu = !showSubmenu;gefavorite()" class="parent">

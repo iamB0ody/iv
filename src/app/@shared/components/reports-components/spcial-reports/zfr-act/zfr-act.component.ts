@@ -8,14 +8,14 @@ import { MatDatepicker } from '@angular/material/datepicker';
 import { UserService } from 'src/app/@core/services/http/user.service';
 
 @Component({
-  selector: 'app-selection-criteria-com',
-  templateUrl: './selection-criteria-com.component.html',
-  styleUrls: ['./selection-criteria-com.component.scss'],
+  selector: 'app-zfr-act',
+  templateUrl: './zfr-act.component.html',
+  styleUrls: ['./zfr-act.component.scss'],
   encapsulation: ViewEncapsulation.None,
   providers: [MessageService]
 
 })
-export class SelectionCriteriaComComponent implements OnInit {
+export class ZfrActComponent {
   Months: any[] = [
     '01','02','03','04','05','06','07','08','09','10','11','12'
   ];
@@ -23,7 +23,7 @@ export class SelectionCriteriaComComponent implements OnInit {
   date2 = new FormControl();
   allVariables: any[] = [];
   isLoaded: boolean = false;
-  RouterId: any
+  RouterId:any="ZFR_ACT_STMT"
   HelperDetail: any;
   HelperTableContent: any;
   simpleOptionsFakedata: any
@@ -49,13 +49,14 @@ export class SelectionCriteriaComComponent implements OnInit {
     public messageService: MessageService,
     private router: Router,private fb: FormBuilder) { 
 
-      this.activatedRoute.paramMap.subscribe((params: ParamMap) => {
-        this.RouterId = params.get("id");
-        this.GetSelectionCriteria(this.RouterId);
-      });
+      // this.activatedRoute.paramMap.subscribe((params: ParamMap) => {
+      //   this.RouterId = params.get("id");
+      //   this.GetSelectionCriteria(this.RouterId);
+      // });
     }
   // * life cycle hooks
-  ngOnInit(): void {
+  ngOnInit(): void {;
+    // this.RouterId =
     this.initData();
     this.GetSelectionCriteria(this.RouterId);
     this.reportService.selectionCriteria=[];
@@ -77,7 +78,7 @@ export class SelectionCriteriaComComponent implements OnInit {
   // init genral data
   initData(): void {
     this.isLoaded = true;
-    this.RouterId = this.activatedRoute.snapshot.paramMap.get('id');
+    // this.RouterId = this.activatedRoute.snapshot.paramMap.get('id');
   }
   // init genral data
 
@@ -321,6 +322,7 @@ export class SelectionCriteriaComComponent implements OnInit {
     // console.log(this.reportService.selectionCriteria);
     
     var unique = [...new Set(this.FormatedData)];
+    // console.log(this.reportService.selectionCriteria);
     this.isDataLoaded = true
     if (unique.length > 0 || this.reportService.selectionCriteria.length > 0) {
       unique.map((data:any) => {
@@ -330,17 +332,10 @@ export class SelectionCriteriaComComponent implements OnInit {
         data.Low = data.Low ? data.Low : []
         data.High = data.High ? data.High : []
       })
-      // console.log("service"+Object.values(this.reportService.selectionCriteria[0]));
-      // console.log("service"+Object.values(this.reportService.selectionCriteria[1]));
-      // console.log("service"+Object.values(this.reportService.selectionCriteria[2]));
       
       for(let i=0;i<this.reportService.selectionCriteria.length;i++)
       {
-       unique.push(this.reportService.selectionCriteria[i])
-       setTimeout(() => {
-       // console.log(this.reportService.selectionCriteria[i]);
-        
-       }, 2000);
+       unique.push(this.reportService.selectionCriteria[i][0])
       }
       this.reportService.executeReport(unique, 1, 10000, this.RouterId).subscribe((data: any) => {
         this.isDataLoaded = false
@@ -395,12 +390,10 @@ export class SelectionCriteriaComComponent implements OnInit {
     });
     // go to result  this.router.navigate([`result/${this.RouterId}`])
   }
-  displayMessage(ev: any) {  
-    
+  displayMessage(ev: any) {    
     this.ChangeInput2('input',this.variantSide,this.variantEvent,this.variantItem,ev)
     this.HelperDetail=false;
     this.MultipleHelperDetail=false;
-  
   }
   ChangeInput2(type: string, Side: any, event: any, item: any,val:any) {
     

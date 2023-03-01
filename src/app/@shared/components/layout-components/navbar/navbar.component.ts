@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NotificationService } from 'src/app/@core/services/http/notification.service';
 import { ReportService } from 'src/app/@core/services/http/report.service';
@@ -18,6 +18,7 @@ export class NavbarComponent implements OnInit {
   allReports:any;
   userReports:any;
   repCount:number=0;
+  @ViewChild('search') search: any;
   constructor(private reportService:ReportService,private notifyService: NotificationService, private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
@@ -70,6 +71,7 @@ export class NavbarComponent implements OnInit {
     });
 
   }
+  
  getReports(searchVal:any)
  {
     this.allReports = [];

@@ -1,9 +1,16 @@
 <div class="container-fluid p-0" style="background: rgb(233, 227, 227);padding: 16px !important;">
     <div class="content m-2 p-3">
+        <ng-container *ngIf="RouterId == 'ZFR_ACT_STMT'">
+        <a href="javaScript:void" routerLink="/ZFR_ACT_STMT" class="Back ">
+            <i class="fa-solid fa-arrow-left "></i>
+            <span>{{RouterId}}</span>
+        </a></ng-container>
+        <ng-container *ngIf="RouterId != 'ZFR_ACT_STMT'">
         <a href="javaScript:void" routerLink="/selection-criteria/{{RouterId}}" class="Back ">
             <i class="fa-solid fa-arrow-left "></i>
             <span>{{RouterId}}</span>
         </a>
+    </ng-container>
         <p-toast></p-toast>
         <!-- Bar Search -->
         <section class="FillterSection">
@@ -99,7 +106,8 @@
                         <ng-template pTemplate="body" let-customer>
                             <tr>
                                 <td *ngFor="let item of tableHeader">
-                                    {{customer[item] }}
+                                   <ng-container *ngIf="customer[item] != 'null'">{{customer[item] }}</ng-container> 
+                                   <ng-container *ngIf="customer[item] == 'null' || customer[item] == ''">-</ng-container> 
                                 </td>
                             </tr>
                         </ng-template>

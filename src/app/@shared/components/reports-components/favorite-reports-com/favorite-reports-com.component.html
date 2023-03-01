@@ -25,7 +25,13 @@
                         <p class="lastReport" *ngIf="dates[i]">access date : {{dates[i]|slice:0:10}}</p>
                     </div>
 
-                    <div class="repButton" role="button" [routerLink]="['/selection-criteria/',item.tCode]">Execute Report</div>
+                    <ng-conatiner *ngIf="item.tCode != 'ZFR_ACT_STMT'">
+                        <div class="repButton" role="button" [routerLink]="['/selection-criteria/',item.tCode]">Execute Report</div>
+                        </ng-conatiner>
+                        <ng-conatiner *ngIf="item.tCode == 'ZFR_ACT_STMT'">
+                            <div class="repButton" role="button" routerLink="/ZFR_ACT_STMT">Execute Report</div>
+                            </ng-conatiner>
+        
 
                 </div>
 

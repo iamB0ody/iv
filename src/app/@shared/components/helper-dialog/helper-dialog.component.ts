@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ClipboardService } from 'ngx-clipboard';
 import { MessageService } from 'primeng/api';
@@ -9,14 +9,12 @@ import { ReportService } from 'src/app/@core/services/http/report.service';
   templateUrl: './helper-dialog.component.html',
   styleUrls: ['./helper-dialog.component.scss'],
   encapsulation: ViewEncapsulation.None
-
 })
-export class HelperDialogComponent implements OnInit, OnChanges {
+export class HelperDialogComponent implements OnInit, OnChanges{
   @Input() HelperDetail: any;
   @Input() TableVisabilities!: boolean;
   @Input() HelperTableContent!: any;
-  @Output() messageEvent = new EventEmitter<string>();
-  message1: string = "Hello";
+  @Output() messageEvent = new EventEmitter< string>();
   message!: string;
   loading: boolean = true;
   representatives!: any[];
@@ -24,7 +22,7 @@ export class HelperDialogComponent implements OnInit, OnChanges {
   fillter: any;
   sendedtoSelection:any;
 
-  constructor( private clipboardApi: ClipboardService, public messageService: MessageService,) { }
+  constructor( private clipboardApi: ClipboardService, public messageService: MessageService,private reportService:ReportService) { }
   ngOnInit(): void {
     this.fakeData()
   }
@@ -67,7 +65,8 @@ export class HelperDialogComponent implements OnInit, OnChanges {
     // console.log(output[j])
     if(output[j]==val)
     {this.sendedtoSelection=output[0];
-      this.messageEvent.emit(this.sendedtoSelection)
+      this.messageEvent.emit(this.sendedtoSelection);
+      this.reportService.help=false;
     }
    }
   }
@@ -78,6 +77,9 @@ export class HelperDialogComponent implements OnInit, OnChanges {
   }
   closeDialog()
   {
-    this.HelperDetail.DialogModule = false
+    this.HelperDetail.DialogModule = false;
+    this.reportService.help=false;
+    this.messageEvent.emit("done")
   }
+ 
 }

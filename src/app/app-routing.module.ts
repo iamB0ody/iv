@@ -20,6 +20,7 @@ import { NotificationsComponent } from './@shared/components/layout-components/n
 import { SelectedNotificationComponent } from './@shared/components/layout-components/selected-notification/selected-notification.component';
 import { AdminAddAuthorizeComponent } from './@shared/components/requests-components/admin-add-authorize/admin-add-authorize.component';
 import { AdminRemoveAuthorizeComponent } from './@shared/components/requests-components/admin-remove-authorize/admin-remove-authorize.component';
+import { ZfrActComponent } from './@shared/components/reports-components/spcial-reports/zfr-act/zfr-act.component';
 
 const routes: Routes = [
   { path: 'login', canActivate: [UnauthenticatedGuard], component: LoginComponent },
@@ -39,12 +40,13 @@ const routes: Routes = [
   { path: 'edit-authorize', canActivate: [AuthorizedGuard], component: AdminRemoveAuthorizeComponent },
   { path: 'respond-authorize', canActivate: [AuthorizedGuard], component: AdminRespondAuthorizeComponent },
   { path: 'notifications', canActivate: [AuthorizedGuard], component: NotificationsComponent },
+  { path: 'ZFR_ACT_STMT', canActivate: [AuthorizedGuard], component:ZfrActComponent },
   { path: 'notification/:id', canActivate: [AuthorizedGuard], component: SelectedNotificationComponent },
   { path: '**', component: NotFoundComponent },
 
 
 
-
+  
 ];
 
 @NgModule({

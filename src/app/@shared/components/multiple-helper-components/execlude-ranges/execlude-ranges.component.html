@@ -1,42 +1,15 @@
 <div class="container-fluid p-2" *ngIf="isLoaded">
     <p-toast></p-toast>
     <div class="content">
-       <h5>Selection Criteria OF {{RouterId}}</h5>
-        <!-- functions on report start-->
-        <div class="row">
-            <div class="d-flex col-12 justify-content-end">
-                <button type="button" class="btn btn-light btn-md btn-outline-dark  selectButton"><i
-                        style="margin: 0 8px 0px -8px" class="fa-solid fa-file-medical"></i>
-                    <span class="SelectionDisplayNone"> select report layout</span></button>
-                <button type="button" class="btn btn-primary excuteButton" (click)="ExcuteAndGetReportResult()">
-                    <i style="margin: 0 8px 0px -8px" class="fa-solid fa-play" *ngIf="isDataLoaded == false"></i>
-                    <span class="SelectionDisplayNone" *ngIf="isDataLoaded == false">
-                        excute report
-                    </span>
-                    <div *ngIf="isDataLoaded == true" class="spinner-grow" role="status" style="margin-top: -6px;">
-                        <span class="visually-hidden">Loading...</span>
-                    </div>
-                </button>
-                <button type="button" class="btn  btn-outline-danger  cancelButton" [routerLink]="['/all-reports']"><i style="margin: 0 8px 0px -8px"
-                        class="fa-solid fa-xmark"></i>
-                    <span class="SelectionDisplayNone" 
-                        routerLinkActive="router-link-active">
-                        cancel</span>
-                </button>
-            <helper-dialog *ngIf="HelperDetail" [HelperTableContent]="HelperTableContent"
-                    [HelperDetail]="HelperDetail" (messageEvent)="displayMessage($event)"></helper-dialog> 
-                    <multiple-helper-dialog *ngIf="MultipleHelperDetail" [MultipleHelperTableContent]="MultipleHelperTableContent"
-                    [MultipleHelperDetail]="MultipleHelperDetail " [criteriaField]="criteriaField " (messageEvent)="displayMessage($event)"></multiple-helper-dialog>
-            </div>
-        </div>
-     <!-- functions on report end-->
+        <helper-dialog *ngIf="HelperDetail" [HelperTableContent]="HelperTableContent"
+        [HelperDetail]="HelperDetail" (messageEvent)="displayMessage($event)"></helper-dialog> 
         <div id="form-container">
             <ng-container [formGroup]="selectionForm">
                 <!-- searchCriatrya Loop -->
                 <ng-container *ngFor="let item of allVariables;let i=index">
-                    <div class="row">
+                    <div class="row" *ngIf="item.fieldName==criteriaField">
                         <div class=" col-sm-11 col-md-7 ">
-                            <div class="row">
+                            <div class="row" >
                                 <!-- item Name -->
                                 <div class="col-5 col-sm-12 col-md-5 mt-1">
                                     <span class="">{{item.fieldName}}</span>
@@ -171,9 +144,10 @@
                             </div>
                             <!--/ right From -->
                         </div>
-                        <div class="col-md-1 col-sm-1 mt-1 text-right SelectionDisplayNone" (click)="multipleHelper(item)" *ngIf="item.type != 1">
-                            <a class="text-right"  class="HelpIconPop">
-                                <img src="./assets/icons/icons/icon.svg" alt="" srcset="">
+                        <div class="col-md-1 col-sm-1 mt-1 text-right SelectionDisplayNone" >
+                            <a class="text-right"  (click)="ExcuteAndGetReportResult()">
+                                <img src="./assets/icons/icons/addFav.svg" alt="" srcset="" width="25" height="25" style="cursor:pointer;margin-top:7px;"
+                                >
                             </a>
                         </div>
                     </div>
@@ -181,6 +155,12 @@
                 </ng-container>
                 <!-- searchCriatrya Loop -->
             </ng-container>
+            <div>
+               
+                <ul>
+                    <li *ngFor="let item of displayedTable ; let i=index"><span >Exclude</span>&nbsp;<span >{{item}}</span>&nbsp;&nbsp;&nbsp;<span>{{displayedTable2[i]}}</span><span class="close" (click)="removeItem(i)">&times;</span></li> 
+                </ul>
+            </div> 
         </div>
     </div>
 

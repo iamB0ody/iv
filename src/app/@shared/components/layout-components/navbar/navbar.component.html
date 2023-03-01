@@ -25,11 +25,17 @@
         </form>
         <mat-menu  #menu0="matMenu">
           <ng-container *ngFor="let rep of allReports ; let x=index">
-         <div *ngIf="x < 8 && allReports" [routerLink]="['/selection-criteria/',rep.tCode]"  style="height:50px;margin-top:8px;background-color:#F3F3F5;border-radius:5px;margin-left:10px;margin-right:10px;cursor: pointer;padding-top:15px;padding-left:10px;">
-        <p >
-          {{rep.tCode}}
-        </p>
-         </div></ng-container>
+            <ng-container *ngIf="rep.tCode == 'ZFR_ACT_STMT'"><div *ngIf="x < 8 && allReports" routerLink="/ZFR_ACT_STMT" style="height:60px;margin-top:8px;background-color:#F3F3F5;border-radius:5px;margin-left:10px;margin-right:10px;cursor: pointer;padding-top:15px;padding-left:10px;line-height:5px;">
+              <div> <p >{{rep.tCode}} </p><small class="d-blocks" >{{rep.description |slice:0:40}}</small></div>
+              
+                </div></ng-container>
+                <ng-container *ngIf="rep.tCode != 'ZFR_ACT_STMT'">
+         <div *ngIf="x < 8 && allReports" [routerLink]="['/selection-criteria/',rep.tCode]" style="height:60px;margin-top:8px;background-color:#F3F3F5;border-radius:5px;margin-left:10px;margin-right:10px;cursor: pointer;padding-top:15px;padding-left:10px;line-height:5px;">
+       <div> <p >{{rep.tCode}} </p><small class="d-blocks" >{{rep.description |slice:0:40}}</small></div>
+       
+         </div>
+        </ng-container>
+        </ng-container>
         </mat-menu>
       </li>
       

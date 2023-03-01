@@ -46,10 +46,10 @@ export class SidebarComponent implements OnInit {
     }
   }
   logout() {
-    this.messageService.add({severity:'success', summary:'you will logout', detail: 'wait you come back'});
-   setTimeout(() => {
+  //   this.messageService.add({severity:'success', summary:'you will logout', detail: 'wait you come back'});
+  //  setTimeout(() => {
      this.userService.userLogout();
-   }, 700);
+  //  }, 700);
     
    
 
