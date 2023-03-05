@@ -8,6 +8,7 @@
                 <button type="button" class="btn btn-light btn-md btn-outline-dark  selectButton"><i
                         style="margin: 0 8px 0px -8px" class="fa-solid fa-file-medical"></i>
                     <span class="SelectionDisplayNone"> select report layout</span></button>
+                   
                 <button type="button" class="btn btn-primary excuteButton" (click)="ExcuteAndGetReportResult()">
                     <i style="margin: 0 8px 0px -8px" class="fa-solid fa-play" *ngIf="isDataLoaded == false"></i>
                     <span class="SelectionDisplayNone" *ngIf="isDataLoaded == false">
@@ -17,6 +18,7 @@
                         <span class="visually-hidden">Loading...</span>
                     </div>
                 </button>
+                <i class="fa-solid fa-circle-check fs-2 mt-1 succesBtn" *ngIf="count2 > 0 || count1 > 0"></i>
                 <button type="button" class="btn  btn-outline-danger  cancelButton" [routerLink]="['/all-reports']"><i style="margin: 0 8px 0px -8px"
                         class="fa-solid fa-xmark"></i>
                     <span class="SelectionDisplayNone" 

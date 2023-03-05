@@ -40,8 +40,8 @@ export class ExecludeRangesComponent {
   MultipleHelperDetail: any;
   MultipleHelperTableContent: any;
   @Input() criteriaField: any;
-  displayedTable:any[]=[];
-  displayedTable2:any[]=[];
+displayedTable:any[]=[];
+displayedTable2:any[]=[];
   constructor(private userService:UserService,
     private activatedRoute: ActivatedRoute,
     private reportService: ReportService,
@@ -240,7 +240,6 @@ export class ExecludeRangesComponent {
   // ***************************Call API Data*************************************
   // get Section criteria
   GetSelectionCriteria(code: string) {
-    this.allVariables=[]
     this.reportService.getSelectedReport(code).subscribe((data: any) => {
       for(let j=0;j <data.length;j++)
       {
@@ -250,6 +249,17 @@ export class ExecludeRangesComponent {
       }
       }
       // this.allVariables = data;
+     
+      for(let i=0;i<this.allVariables.length;i++)
+      {
+        if(this.allVariables[i].type===1)
+        {
+          this.datesArr.push(this.allVariables[i].fieldName+"From")
+          this.datesArr.push(this.allVariables[i].fieldName+"To")
+        }
+
+      }
+     
      
       for(let i=0;i<this.allVariables.length;i++)
       {
@@ -314,14 +324,15 @@ export class ExecludeRangesComponent {
     
     var unique = [...new Set(this.FormatedData)];
     
-    if (this.displayedTable.indexOf("From " +unique[0].Low) === -1) 
+
+    if (this.displayedTable.indexOf("From " +unique[0].Low) === -1 && unique[0].Low!='') 
     this.displayedTable.push("From " + unique[0].Low)
-    if (this.displayedTable2.indexOf("To " +unique[0].High) === -1) 
-    this.displayedTable2.push("To " + unique[0].High)
-    // this.isDataLoaded = true
+    if (this.displayedTable2.indexOf(" To " +unique[0].High) === -1) 
+        this.displayedTable2.push(" To " + unique[0].High)
+ // this.isDataLoaded = true
     if (unique.length > 0) {
       unique.map(data => {
-        data.Indicator = (data.High && data.Low) ? 2 : data.Indicator //Between, //2
+        data.Indicator = 1;
         data.Indicator = (data.High && !data.Low) ? 10 : data.Indicator //less than  10
         data.Indicator = (data.Low && !data.High) ? 0 : data.Indicator // sEqual, //0
         data.Low = data.Low ? data.Low : []
@@ -344,8 +355,43 @@ export class ExecludeRangesComponent {
     // this.FormatedData=[];
         
     //   });
-    this.reportService.selectionCriteria.push(unique)
-    
+   let item=Object.values(unique[0])
+  // for (let i = 0; i <item.length; i++) {
+    let high;
+    let low;
+    let indicator=0;
+    // -------------------high---------------------
+    if (item[7] !=null && Array.isArray(item[7]) && item[7][0].length > 0)
+      high = item[7]
+    else
+      high = []
+  // -------------------low---------------------
+    if (item[5] !=null && Array.isArray(item[5]) && item[5][0].length > 0 )
+      low = item[5]
+    else
+      low = []
+  // -------------------indicator---------------------
+      if(high.length==0 &&low.length > 0)
+      {indicator=0;}
+     else if(high.length > 0 &&low.length > 0)
+      {indicator=2;}
+     else if(high.length >0 &&low.length == 0)
+      {indicator=10;}
+    //  else if(high.length==0 &&low.length > 0)
+    //   {indicator=0;}
+    let obj = {
+      fieldName: item[0],
+      technicalName: item[1],
+      type: item[2],
+      HelpFullLeft:item[3],
+      Indicator:1,
+      Low: low
+      ,
+      High:high
+    }
+    if(this.reportService.selectionCriteria.indexOf(obj)===-1)
+    this.reportService.selectionCriteria.push(obj)
+  // }
     unique=[]
     } else {
       // this.isDataLoaded = false
@@ -390,58 +436,57 @@ export class ExecludeRangesComponent {
   }
   ChangeInput2(type: string, Side: any, event: any, item: any,val:any) {
     
-    if(val && val!='done'  )
-    {
-     if (Side == 'From') {
-       // item.Indicator = 9
-       item.Low =[val] 
-       event.target.value= val
-       this.FormatedData.push(item)
-       // check input type from left side or from right side to update or add new 
-       this.FormatedData.forEach((element: any, index: any) => {
-         // element.HelpFullRight = false;
-         if (element.HelpFullLeft === true && index) {
-           // this.FormatedData.splice(index, 1);
-         }
-       });
-       // end check input type from left side or from right side to update or add new 
- 
- 
-     } 
- 
-     else {
-       //this.historyFormatedData.push(val)
-       item.High =[val] 
-       event.target.value= val
-       this.FormatedData.push(item)
-       // end check input type from left side or from right side to update or add new 
-       this.FormatedData.forEach((element: any, index: any) => {
-         // element.HelpFullLeft = false;
-         if (element.HelpFullRight === true && index) {
-           // this.FormatedData.splice(index, 1);
-         }
-       });
-       // end check input type from left side or from right side to update or add new 
- 
-     }
-    // end  check input type from left side or from right side
- 
-     this.ValidateInput(item)
-    
- 
-    }
-    else if("done"){
-     
-    }
-    else{
-     this.isLoaded=true;
+   if(val && val!='done'  )
+   {
+    if (Side == 'From') {
+      // item.Indicator = 9
+      item.Low =[val] 
+      event.target.value= val
+      this.FormatedData.push(item)
+      // check input type from left side or from right side to update or add new 
+      this.FormatedData.forEach((element: any, index: any) => {
+        // element.HelpFullRight = false;
+        if (element.HelpFullLeft === true && index) {
+          // this.FormatedData.splice(index, 1);
+        }
+      });
+      // end check input type from left side or from right side to update or add new 
+
+
     } 
-     // log data
+
+    else {
+      //this.historyFormatedData.push(val)
+      item.High =[val] 
+      event.target.value= val
+      this.FormatedData.push(item)
+      // end check input type from left side or from right side to update or add new 
+      this.FormatedData.forEach((element: any, index: any) => {
+        // element.HelpFullLeft = false;
+        if (element.HelpFullRight === true && index) {
+          // this.FormatedData.splice(index, 1);
+        }
+      });
+      // end check input type from left side or from right side to update or add new 
+
+    }
+   // end  check input type from left side or from right side
+
+    this.ValidateInput(item)
    
+
    }
+   else if("done"){
+    
+   }
+   else{
+    this.isLoaded=true;
+   } 
+    // log data
   
-   removeItem(id:any)
+  }
+  removeItem(id:any)
   {
 this.displayedTable.splice(id,1);  } 
+  
 }
- 

@@ -18,6 +18,7 @@ export class NavbarComponent implements OnInit {
   allReports:any;
   userReports:any;
   repCount:number=0;
+ 
   @ViewChild('search') search: any;
   constructor(private reportService:ReportService,private notifyService: NotificationService, private userService: UserService, private router: Router) { }
 

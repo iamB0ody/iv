@@ -42,9 +42,7 @@ export class MultipleSingleValuesComponent {
   MultipleHelperDetail: any;
   MultipleHelperTableContent: any;
   @Input() criteriaField: any;
-  @Output() messageEvent = new EventEmitter<any>();
-  displayedTable:any[]=[];
-  displayedTable2:any[]=[];
+displayedTable:any[]=[];
   constructor(private userService:UserService,
     private activatedRoute: ActivatedRoute,
     private reportService: ReportService,
@@ -53,17 +51,7 @@ export class MultipleSingleValuesComponent {
   // * life cycle hooks
   ngOnInit(): void {
     this.initData();
-    this.criteriaField=localStorage.getItem('criteriaField');
     this.GetSelectionCriteria(this.RouterId);
-  }
-  ngOnChanges(changes: SimpleChanges): void {
-    if(changes['criteriaField']){   
-      // this.MultipleHelperTableContent = changes['criteriaField']?.currentValue
-      // this.InitTableHeader()
-      // this.loading = false;
-      // this.loadPage=true
-      this.GetSelectionCriteria(this.RouterId);
-    }
   }
   chosenYearHandler1(dp: any) {
     this.dValue1=dp;
@@ -253,7 +241,6 @@ export class MultipleSingleValuesComponent {
   // ***************************Call API Data*************************************
   // get Section criteria
   GetSelectionCriteria(code: string) {
-    this.allVariables=[]
     this.reportService.getSelectedReport(code).subscribe((data: any) => {
       for(let j=0;j <data.length;j++)
       {
@@ -263,6 +250,17 @@ export class MultipleSingleValuesComponent {
       }
       }
       // this.allVariables = data;
+     
+      for(let i=0;i<this.allVariables.length;i++)
+      {
+        if(this.allVariables[i].type===1)
+        {
+          this.datesArr.push(this.allVariables[i].fieldName+"From")
+          this.datesArr.push(this.allVariables[i].fieldName+"To")
+        }
+
+      }
+     
      
       for(let i=0;i<this.allVariables.length;i++)
       {
@@ -324,91 +322,154 @@ export class MultipleSingleValuesComponent {
   historyFormatedData: any[] = []
   isDataLoaded: any = false
   ExcuteAndGetReportResult() {
-   // console.log(this.FormatedData[0]);
     
     var unique = [...new Set(this.FormatedData)];
-    this.messageEvent.emit( unique[0])
-   if (this.displayedTable.indexOf("Include " + unique[0].Low) === -1)
-  { 
-    //  console.log(unique[0]);
-    // console.log( this.reportService.selectionCriteria);
-    //this.reportService.selectionCriteria.push(unique);
     
-    this.displayedTable.push("Include " + unique[0].Low)
-   
-     
-  }
-     if (unique.length > 0) {
+
+if (this.displayedTable.indexOf("Include " +unique[0].Low) === -1 && unique[0].Low!='') 
+this.displayedTable.push("Include " + unique[0].Low)
+ // this.isDataLoaded = true
+    if (unique.length > 0) {
       unique.map(data => {
-        data.Indicator = 0;
+        data.Indicator = 1;
+        // data.Indicator = (data.High && !data.Low) ? 10 : data.Indicator //less than  10
+        // data.Indicator = (data.Low && !data.High) ? 0 : data.Indicator // sEqual, //0
         data.Low = data.Low ? data.Low : []
         data.High = data.High ? data.High : []
       })
+    //   this.reportService.executeReport(unique, 1, 10000, this.RouterId).subscribe((data: any) => {
+    //     this.isDataLoaded = false
+    //    this.reportService.reportData=data;
+    //     localStorage.setItem('SelectionCriteria', JSON.stringify(unique));
+    //     this.router.navigate([`result/${this.RouterId}`])
+
+    //   }, (err: any) => {
+    //     if (Number(err.status) === 401 || err.statusText == 'Unauthorized') {
+    //       this.userService.userLogout();
+    //     }
+    //     this.messageService.add({ severity: 'error', summary: 'Error', detail: `${err.error}` });
+    //     this.isDataLoaded = false
+    //     this.initData();
+    // this.GetSelectionCriteria(this.RouterId);
+    // this.FormatedData=[];
+        
+    //   });
+   let item=Object.values(unique[0])
+  // for (let i = 0; i <item.length; i++) {
     
-   
-  
-   
-    } 
-   this.FormatedData=[]
-   }
+    let low;
+    if (item[5])
+      low = item[5]
+    else
+      low = []
+    let obj = {
+      fieldName: item[0],
+      technicalName: item[1],
+      type: item[2],
+      HelpFullLeft:item[3],
+      Indicator:0,
+      Low: low
+      ,
+      High: []
+    }
+    this.reportService.selectionCriteria.push(obj)
+  // }
+    unique=[]
+    } else {
+      // this.isDataLoaded = false
+      this.messageService.add({ severity: 'error', summary: 'Add Values', detail: 'Select Your Values Please' });
+    }
+
+
+    // post history hinout data
+    unique.map((data: any) => {    
+      if(data.Low[0])
+      this.historyFormatedData.push(
+        {
+          "ReportName": this.RouterId,
+          "TechnicalName": data.technicalName,
+          "Value": data.Low[0]
+        });
+       if(data.High[0])
+      this.historyFormatedData.push(
+        {
+          "ReportName": this.RouterId,
+          "TechnicalName": data.technicalName,
+          "Value": data.High[0]
+        })
+    })
+    // ReportId: number, TechnicalName: string, Value: any
+    this.reportService.PostSelectionHistory(this.historyFormatedData).subscribe((data: any) => {
+      this.reportService.reportData=data;
+        
+    }
+    , (err: any) => {
+      // this.isDataLoaded = false
+      if (Number(err.status) === 401 || err.statusText == 'Unauthorized') {
+        this.userService.userLogout();
+      }
+    });
+    // go to result  this.router.navigate([`result/${this.RouterId}`])
+  }
   displayMessage(ev: any) {    
     this.ChangeInput2('input',this.variantSide,this.variantEvent,this.variantItem,ev)
     // this.HelperDetail.technicalName=ev
-    // alert(ev) 
+
   }
   ChangeInput2(type: string, Side: any, event: any, item: any,val:any) {
     
-    if(val && val!='done'  )
-    {
-     if (Side == 'From') {
-       // item.Indicator = 9
-       item.Low =[val] 
-       event.target.value= val
-       this.FormatedData.push(item)
-       // check input type from left side or from right side to update or add new 
-       this.FormatedData.forEach((element: any, index: any) => {
-         // element.HelpFullRight = false;
-         if (element.HelpFullLeft === true && index) {
-           // this.FormatedData.splice(index, 1);
-         }
-       });
-       // end check input type from left side or from right side to update or add new 
- 
- 
-     } 
- 
-     else {
-       //this.historyFormatedData.push(val)
-       item.High =[val] 
-       event.target.value= val
-       this.FormatedData.push(item)
-       // end check input type from left side or from right side to update or add new 
-       this.FormatedData.forEach((element: any, index: any) => {
-         // element.HelpFullLeft = false;
-         if (element.HelpFullRight === true && index) {
-           // this.FormatedData.splice(index, 1);
-         }
-       });
-       // end check input type from left side or from right side to update or add new 
- 
-     }
-    // end  check input type from left side or from right side
- 
-     this.ValidateInput(item)
-    
- 
-    }
-    else if("done"){
-     
-    }
-    else{
-     this.isLoaded=true;
+   if(val && val!='done'  )
+   {
+    if (Side == 'From') {
+      // item.Indicator = 9
+      item.Low =[val] 
+      event.target.value= val
+      this.FormatedData.push(item)
+      // check input type from left side or from right side to update or add new 
+      this.FormatedData.forEach((element: any, index: any) => {
+        // element.HelpFullRight = false;
+        if (element.HelpFullLeft === true && index) {
+          // this.FormatedData.splice(index, 1);
+        }
+      });
+      // end check input type from left side or from right side to update or add new 
+
+
     } 
-     // log data
+
+    else {
+      //this.historyFormatedData.push(val)
+      item.High =[val] 
+      event.target.value= val
+      this.FormatedData.push(item)
+      // end check input type from left side or from right side to update or add new 
+      this.FormatedData.forEach((element: any, index: any) => {
+        // element.HelpFullLeft = false;
+        if (element.HelpFullRight === true && index) {
+          // this.FormatedData.splice(index, 1);
+        }
+      });
+      // end check input type from left side or from right side to update or add new 
+
+    }
+   // end  check input type from left side or from right side
+
+    this.ValidateInput(item)
    
+
    }
+   else if("done"){
+    
+   }
+   else{
+    this.isLoaded=true;
+   } 
+    // log data
+  
+  }
   removeItem(id:any)
   {
-this.displayedTable.splice(id,1);  } 
+this.displayedTable.splice(id,1); 
+} 
   
 }

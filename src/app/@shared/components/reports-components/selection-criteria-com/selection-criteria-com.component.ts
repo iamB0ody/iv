@@ -43,6 +43,8 @@ export class SelectionCriteriaComComponent implements OnInit {
   MultipleHelperDetail:any;
   MultipleHelperTableContent: any;
   criteriaField:any;
+  count1:number=0;
+  count2:number=0;
   constructor(private userService:UserService,
     private activatedRoute: ActivatedRoute,
     private reportService: ReportService,
@@ -89,6 +91,7 @@ export class SelectionCriteriaComComponent implements OnInit {
       item.Indicator = 2;
       item.Low = [type == 'input' ? event.target.value : event.value]
       this.FormatedData.push(item)
+      this.count1=this.FormatedData.length;
       // check input type from left side or from right side to update or add new 
       this.FormatedData.forEach((element: any, index: any) => {
         // if (element.HelpFullLeft === true && index) {
@@ -99,7 +102,8 @@ export class SelectionCriteriaComComponent implements OnInit {
      else {
       item.Indicator = 10
       item.High = [type == 'input' ? event.target.value : event.value]
-      this.FormatedData.push(item)
+      this.FormatedData.push(item);
+      this.count1=this.FormatedData.length;
       // end check input type from left side or from right side to update or add new 
       this.FormatedData.forEach((element: any, index: any) => {
         // if (element.HelpFullRight === true && index) {
@@ -120,7 +124,7 @@ export class SelectionCriteriaComComponent implements OnInit {
       item.Indicator = 2
       item.Low = [type == 'input' ? event : event]
       this.FormatedData.push(item)
-     
+      this.count1=this.FormatedData.length;
       // check input type from left side or from right side to update or add new 
       this.FormatedData.forEach((element: any, index: any) => {
         if (element.HelpFullLeft === true && index) {
@@ -134,7 +138,7 @@ export class SelectionCriteriaComComponent implements OnInit {
       item.Indicator = 10
       item.High = [type == 'input' ? event : event]
       this.FormatedData.push(item)
-     
+      this.count1=this.FormatedData.length;
       // end check input type from left side or from right side to update or add new 
       this.FormatedData.forEach((element: any, index: any) => {
         if (element.HelpFullRight === true && index) {
@@ -162,6 +166,7 @@ export class SelectionCriteriaComComponent implements OnInit {
       item.Indicator = 2
       item.Low = [type == 'input' ? event : event]
       this.FormatedData.push(item)
+      this.count1=this.FormatedData.length;
       // check input type from left side or from right side to update or add new 
       this.FormatedData.forEach((element: any, index: any) => {
         if (element.HelpFullLeft === true && index) {
@@ -173,7 +178,7 @@ export class SelectionCriteriaComComponent implements OnInit {
       item.Indicator = 10
       item.High = [type == 'input' ? event : event]
       this.FormatedData.push(item)
-     
+      this.count1=this.FormatedData.length;
       // end check input type from left side or from right side to update or add new 
       this.FormatedData.forEach((element: any, index: any) => {
         if (element.HelpFullRight === true && index) {
@@ -337,15 +342,12 @@ export class SelectionCriteriaComComponent implements OnInit {
       for(let i=0;i<this.reportService.selectionCriteria.length;i++)
       {
        unique.push(this.reportService.selectionCriteria[i])
-       setTimeout(() => {
-       // console.log(this.reportService.selectionCriteria[i]);
-        
-       }, 2000);
       }
       this.reportService.executeReport(unique, 1, 10000, this.RouterId).subscribe((data: any) => {
         this.isDataLoaded = false
-       this.reportService.reportData=data;
+        this.reportService.reportData=data;
         localStorage.setItem('SelectionCriteria', JSON.stringify(unique));
+        this.reportService.selectionCriteria=[]
         this.router.navigate([`result/${this.RouterId}`])
 
       }, (err: any) => {
@@ -396,11 +398,10 @@ export class SelectionCriteriaComComponent implements OnInit {
     // go to result  this.router.navigate([`result/${this.RouterId}`])
   }
   displayMessage(ev: any) {  
-    
     this.ChangeInput2('input',this.variantSide,this.variantEvent,this.variantItem,ev)
     this.HelperDetail=false;
     this.MultipleHelperDetail=false;
-  
+  this.count2=this.reportService.selectionCriteria.length;
   }
   ChangeInput2(type: string, Side: any, event: any, item: any,val:any) {
     
@@ -411,6 +412,7 @@ export class SelectionCriteriaComComponent implements OnInit {
       item.Low =[val] 
       event.target.value= val
       this.FormatedData.push(item)
+      this.count1=this.FormatedData.length;
       // check input type from left side or from right side to update or add new 
       this.FormatedData.forEach((element: any, index: any) => {
         // element.HelpFullRight = false;
@@ -428,6 +430,7 @@ export class SelectionCriteriaComComponent implements OnInit {
       item.High =[val] 
       event.target.value= val
       this.FormatedData.push(item)
+      this.count1=this.FormatedData.length;
       // end check input type from left side or from right side to update or add new 
       this.FormatedData.forEach((element: any, index: any) => {
         // element.HelpFullLeft = false;

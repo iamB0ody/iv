@@ -19,7 +19,7 @@
 .excuteButton {
     background-color: #1E1838 !important;
     margin-left: 20px;
-    margin-right: 20px;
+    margin-right: 5px;
     margin-bottom: 25px;
 }
 
@@ -33,6 +33,7 @@
 
 .cancelButton {
     margin-bottom: 25px;
+    margin-left:15px;
     margin-right:4vw!important;
     background-color: #FFFFFF !important;
     color: #dc3545 !important;
@@ -152,4 +153,9 @@ cursor: pointer;
 .mat-datepicker-toggle
 {
     z-index:6000;
+}
+.succesBtn
+{
+   color: #28a745;
+   margin-right: 5px;
 }

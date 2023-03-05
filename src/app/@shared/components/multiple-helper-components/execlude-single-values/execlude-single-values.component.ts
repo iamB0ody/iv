@@ -352,8 +352,24 @@ this.displayedTable.push("Exclude " + unique[0].Low)
     // this.FormatedData=[];
         
     //   });
-    this.reportService.selectionCriteria.push(unique)
-  
+   let item=Object.values(unique[0])
+  // for (let i = 0; i <item.length; i++) {
+    let low;
+    if (item[5])
+      low = item[5]
+    else
+      low = []
+    let obj = {
+      fieldName: item[0],
+      technicalName: item[1],
+      type: item[2],
+      HelpFullLeft:item[3],
+      Indicator:1,
+      Low: low,
+      High: []
+    }
+    this.reportService.selectionCriteria.push(obj)
+  // }
     unique=[]
     } else {
       // this.isDataLoaded = false

@@ -16,41 +16,34 @@ export class MultipleHelperDialogComponent {
   @Input() MultipleHelperTableContent!: any;
   @Input() criteriaField!: any;
   @Output() messageEvent = new EventEmitter<string>();
+  @Output() messageEvent2 = new EventEmitter<any>();
   message!: string;
   loading: boolean = true;
-  loadPage:boolean=false;
+  loadPage: boolean = false;
   representatives!: any[];
   tableHeader: any[] = [];
   fillter: any;
-  sendedtoSelection:any;
-  genArr:any[]=[];
-  constructor(public messageService: MessageService,private reportService:ReportService) { }
+  sendedtoSelection: any;
+  genArr: any[] = [];
+  constructor(public messageService: MessageService, private reportService: ReportService) { }
   ngOnInit(): void {
     this.fakeData();
-   
+
   }
   ngOnChanges(changes: SimpleChanges): void {
-    if(changes['MultipleHelperTableContent']){   
+    if (changes['MultipleHelperTableContent']) {
       this.MultipleHelperTableContent = changes['MultipleHelperTableContent']?.currentValue
       this.InitTableHeader()
       this.loading = false;
-      this.loadPage=true
+      this.loadPage = true
     }
-    // if(changes['criteriaField']){   
-    //   this.MultipleHelperTableContent = changes['criteriaField']?.currentValue
-    //   // this.InitTableHeader()
-    //   // this.loading = false;
-    //   // this.loadPage=true
-    //    alert(this.criteriaField)
-    // }
   }
   // to get table header 
   InitTableHeader() {
     this.tableHeader = []
     for (const key in { ...this?.MultipleHelperTableContent[0] }) {
-      if(key)
-      this.tableHeader.push(key)
-      
+      if (key)
+        this.tableHeader.push(key)
     }
   }
   //end to get table header 
@@ -59,54 +52,43 @@ export class MultipleHelperDialogComponent {
       this.loading = false
     }, 1000);
   }
-  selectVal(val:any)
-  {
-  //  console.log(this.HelperTableContent);
-   for(let i=0;i<this.MultipleHelperTableContent.length;i++)
-   {const x=new Map(Object.entries(this?.MultipleHelperTableContent[i]))
-    const output = [...x.values()];
-    // Object.keys(x)
-    // .map(function(n) {
-    // return [+n,x[n]];
-    // });
-    
-    for(let j=0;j<output.length;j++)
-   {
-    // console.log(output[j])
-    if(output[j]==val)
-    {this.sendedtoSelection=output[0];
-      this.messageEvent.emit(this.sendedtoSelection)
+  selectVal(val: any) {
+    //  console.log(this.HelperTableContent);
+    for (let i = 0; i < this.MultipleHelperTableContent.length; i++) {
+      const x = new Map(Object.entries(this?.MultipleHelperTableContent[i]))
+      const output = [...x.values()];
+      // Object.keys(x)
+      // .map(function(n) {
+      // return [+n,x[n]];
+      // });
+
+      for (let j = 0; j < output.length; j++) {
+        // console.log(output[j])
+        if (output[j] == val) {
+          this.sendedtoSelection = output[0];
+          this.messageEvent.emit(this.sendedtoSelection)
+        }
+      }
     }
-   }
-  }
-   
+
     // this.messageEvent.emit(val);
 
-  this.closeDialog()
+    this.closeDialog()
   }
-  
-  closeDialog()
-  {
+
+  closeDialog() {
     this.MultipleHelperDetail.DialogModule = false;
-    
-    this.reportService.multipleHelp=false;
+
+    this.reportService.multipleHelp = false;
     this.messageEvent.emit("done");
   }
-  // closeDialog()
-  // {
-  //   this.HelperDetail.DialogModule = false;
-  //   this.reportService.help=false;
-  // }
-  changeSelection(val:any)
-  {
-    
-      this.reportService.selectionCriteria.push(val);
-     
-    let len=this.genArr.length
-this.genArr[len]=Object.entries(val)
-for(let i=0;i<this.genArr.length;i++)
-alert(this.genArr[i])
+  
+  changeSelection(val: any) {
 
+    this.reportService.selectionCriteria.push(val);
+    let len = this.genArr.length
+    this.genArr[len] = val
+    this.messageEvent2.emit(this.genArr[len]);
   }
   ngOnDestroy() {
     this.closeDialog()
