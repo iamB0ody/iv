@@ -40,6 +40,7 @@ export class ExecludeSingleValuesComponent{
   MultipleHelperDetail: any;
   MultipleHelperTableContent: any;
   @Input() criteriaField: any;
+  selectedVal:any;
 displayedTable:any[]=[];
   constructor(private userService:UserService,
     private activatedRoute: ActivatedRoute,
@@ -76,6 +77,7 @@ displayedTable:any[]=[];
     if (Side == 'From') {
       item.Indicator = 2;
       item.Low = [type == 'input' ? event.target.value : event.value]
+      this.selectedVal=event;
       this.FormatedData.push(item)
       // check input type from left side or from right side to update or add new 
       this.FormatedData.forEach((element: any, index: any) => {
@@ -107,6 +109,7 @@ displayedTable:any[]=[];
     if (Side == 'From') {
       item.Indicator = 2
       item.Low = [type == 'input' ? event : event]
+      this.selectedVal=event;
       this.FormatedData.push(item)
      
       // check input type from left side or from right side to update or add new 
@@ -149,6 +152,7 @@ displayedTable:any[]=[];
     if (Side == 'From') {
       item.Indicator = 2
       item.Low = [type == 'input' ? event : event]
+      this.selectedVal=event;
       this.FormatedData.push(item)
       // check input type from left side or from right side to update or add new 
       this.FormatedData.forEach((element: any, index: any) => {
@@ -371,6 +375,7 @@ this.displayedTable.push("Exclude " + unique[0].Low)
     this.reportService.selectionCriteria.push(obj)
   // }
     unique=[]
+    this.selectedVal.target.value=''
     } else {
       // this.isDataLoaded = false
       this.messageService.add({ severity: 'error', summary: 'Add Values', detail: 'Select Your Values Please' });
@@ -419,6 +424,7 @@ this.displayedTable.push("Exclude " + unique[0].Low)
     if (Side == 'From') {
       // item.Indicator = 9
       item.Low =[val] 
+      this.selectedVal=event;
       event.target.value= val
       this.FormatedData.push(item)
       // check input type from left side or from right side to update or add new 

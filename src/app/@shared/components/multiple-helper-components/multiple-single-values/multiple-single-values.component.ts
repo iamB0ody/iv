@@ -43,6 +43,7 @@ export class MultipleSingleValuesComponent {
   MultipleHelperTableContent: any;
   @Input() criteriaField: any;
 displayedTable:any[]=[];
+selectedVal:any;
   constructor(private userService:UserService,
     private activatedRoute: ActivatedRoute,
     private reportService: ReportService,
@@ -78,6 +79,7 @@ displayedTable:any[]=[];
     if (Side == 'From') {
       item.Indicator = 2;
       item.Low = [type == 'input' ? event.target.value : event.value]
+      this.selectedVal=event;
       this.FormatedData.push(item)
       // check input type from left side or from right side to update or add new 
       this.FormatedData.forEach((element: any, index: any) => {
@@ -109,6 +111,7 @@ displayedTable:any[]=[];
     if (Side == 'From') {
       item.Indicator = 2
       item.Low = [type == 'input' ? event : event]
+      this.selectedVal=event;
       this.FormatedData.push(item)
      
       // check input type from left side or from right side to update or add new 
@@ -151,6 +154,7 @@ displayedTable:any[]=[];
     if (Side == 'From') {
       item.Indicator = 2
       item.Low = [type == 'input' ? event : event]
+      this.selectedVal=event;
       this.FormatedData.push(item)
       // check input type from left side or from right side to update or add new 
       this.FormatedData.forEach((element: any, index: any) => {
@@ -327,7 +331,7 @@ displayedTable:any[]=[];
     
 
 if (this.displayedTable.indexOf("Include " +unique[0].Low) === -1 && unique[0].Low!='') 
-this.displayedTable.push("Include " + unique[0].Low)
+{this.displayedTable.push("Include " +unique[0].Low)
  // this.isDataLoaded = true
     if (unique.length > 0) {
       unique.map(data => {
@@ -374,7 +378,10 @@ this.displayedTable.push("Include " + unique[0].Low)
     }
     this.reportService.selectionCriteria.push(obj)
   // }
-    unique=[]
+    unique=[];
+    this.FormatedData=[];
+    this.selectedVal.target.value=''
+  
     } else {
       // this.isDataLoaded = false
       this.messageService.add({ severity: 'error', summary: 'Add Values', detail: 'Select Your Values Please' });
@@ -411,6 +418,9 @@ this.displayedTable.push("Include " + unique[0].Low)
     });
     // go to result  this.router.navigate([`result/${this.RouterId}`])
   }
+else
+this.selectedVal.target.value=''
+}
   displayMessage(ev: any) {    
     this.ChangeInput2('input',this.variantSide,this.variantEvent,this.variantItem,ev)
     // this.HelperDetail.technicalName=ev
@@ -424,6 +434,7 @@ this.displayedTable.push("Include " + unique[0].Low)
       // item.Indicator = 9
       item.Low =[val] 
       event.target.value= val
+    this.selectedVal=event;
       this.FormatedData.push(item)
       // check input type from left side or from right side to update or add new 
       this.FormatedData.forEach((element: any, index: any) => {

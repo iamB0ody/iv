@@ -65,7 +65,7 @@ export class MultipleHelperDialogComponent {
       for (let j = 0; j < output.length; j++) {
         // console.log(output[j])
         if (output[j] == val) {
-          this.sendedtoSelection = output[0];
+          this.sendedtoSelection =output[0];
           this.messageEvent.emit(this.sendedtoSelection)
         }
       }
