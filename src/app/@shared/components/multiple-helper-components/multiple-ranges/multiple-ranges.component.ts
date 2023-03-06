@@ -42,6 +42,8 @@ export class MultipleRangesComponent {
   @Input() criteriaField: any;
 displayedTable:any[]=[];
 displayedTable2:any[]=[];
+selectedHigh:any;
+selectedLow:any;
   constructor(private userService:UserService,
     private activatedRoute: ActivatedRoute,
     private reportService: ReportService,
@@ -78,6 +80,7 @@ displayedTable2:any[]=[];
       item.Indicator = 2;
       item.Low = [type == 'input' ? event.target.value : event.value]
       this.FormatedData.push(item)
+      this.selectedLow=event
       // check input type from left side or from right side to update or add new 
       this.FormatedData.forEach((element: any, index: any) => {
         // if (element.HelpFullLeft === true && index) {
@@ -89,6 +92,7 @@ displayedTable2:any[]=[];
       item.Indicator = 10
       item.High = [type == 'input' ? event.target.value : event.value]
       this.FormatedData.push(item)
+      this.selectedHigh=event
       // end check input type from left side or from right side to update or add new 
       this.FormatedData.forEach((element: any, index: any) => {
         // if (element.HelpFullRight === true && index) {
@@ -109,7 +113,7 @@ displayedTable2:any[]=[];
       item.Indicator = 2
       item.Low = [type == 'input' ? event : event]
       this.FormatedData.push(item)
-     
+     this.selectedLow=event
       // check input type from left side or from right side to update or add new 
       this.FormatedData.forEach((element: any, index: any) => {
         if (element.HelpFullLeft === true && index) {
@@ -123,7 +127,7 @@ displayedTable2:any[]=[];
       item.Indicator = 10
       item.High = [type == 'input' ? event : event]
       this.FormatedData.push(item)
-     
+     this.selectedHigh=event
       // end check input type from left side or from right side to update or add new 
       this.FormatedData.forEach((element: any, index: any) => {
         if (element.HelpFullRight === true && index) {
@@ -151,6 +155,7 @@ displayedTable2:any[]=[];
       item.Indicator = 2
       item.Low = [type == 'input' ? event : event]
       this.FormatedData.push(item)
+      this.selectedLow=event
       // check input type from left side or from right side to update or add new 
       this.FormatedData.forEach((element: any, index: any) => {
         if (element.HelpFullLeft === true && index) {
@@ -162,7 +167,7 @@ displayedTable2:any[]=[];
       item.Indicator = 10
       item.High = [type == 'input' ? event : event]
       this.FormatedData.push(item)
-     
+     this.selectedHigh=event
       // end check input type from left side or from right side to update or add new 
       this.FormatedData.forEach((element: any, index: any) => {
         if (element.HelpFullRight === true && index) {
@@ -325,10 +330,10 @@ displayedTable2:any[]=[];
     var unique = [...new Set(this.FormatedData)];
     
 
-if (this.displayedTable.indexOf("From " +unique[0].Low) === -1 && unique[0].Low!='') 
-this.displayedTable.push("From " + unique[0].Low)
-if (this.displayedTable2.indexOf(" To " +unique[0].High) === -1) 
-    this.displayedTable2.push(" To " + unique[0].High)
+    if (this.displayedTable.indexOf("From " +unique[0].Low) === -1 && unique[0].Low!='') 
+    this.displayedTable.push("From " + unique[0].Low)
+    if (this.displayedTable2.indexOf(" To " +unique[0].High) === -1) 
+        this.displayedTable2.push(" To " + unique[0].High)
  // this.isDataLoaded = true
     if (unique.length > 0) {
       unique.map(data => {
@@ -384,7 +389,7 @@ if (this.displayedTable2.indexOf(" To " +unique[0].High) === -1)
       technicalName: item[1],
       type: item[2],
       HelpFullLeft:item[3],
-      Indicator:indicator,
+      Indicator:1,
       Low: low
       ,
       High:high
@@ -393,6 +398,8 @@ if (this.displayedTable2.indexOf(" To " +unique[0].High) === -1)
     this.reportService.selectionCriteria.push(obj)
   // }
     unique=[]
+    this.selectedLow.target.value=''
+    this.selectedHigh.target.value=''
     } else {
       // this.isDataLoaded = false
       this.messageService.add({ severity: 'error', summary: 'Add Values', detail: 'Select Your Values Please' });
@@ -443,6 +450,7 @@ if (this.displayedTable2.indexOf(" To " +unique[0].High) === -1)
       item.Low =[val] 
       event.target.value= val
       this.FormatedData.push(item)
+      this.selectedLow=event
       // check input type from left side or from right side to update or add new 
       this.FormatedData.forEach((element: any, index: any) => {
         // element.HelpFullRight = false;
@@ -460,6 +468,7 @@ if (this.displayedTable2.indexOf(" To " +unique[0].High) === -1)
       item.High =[val] 
       event.target.value= val
       this.FormatedData.push(item)
+      this.selectedHigh=event
       // end check input type from left side or from right side to update or add new 
       this.FormatedData.forEach((element: any, index: any) => {
         // element.HelpFullLeft = false;
