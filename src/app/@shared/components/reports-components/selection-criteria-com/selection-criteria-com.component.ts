@@ -463,4 +463,8 @@ export class SelectionCriteriaComComponent implements OnInit {
   {
     this.shLayouts=!this.shLayouts;
   }
+  changeLayout(ev:any)
+  {
+   
+  }
 }

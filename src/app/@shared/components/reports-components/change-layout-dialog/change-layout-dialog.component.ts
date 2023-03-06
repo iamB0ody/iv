@@ -1,4 +1,4 @@
-import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-change-layout-dialog',
@@ -9,5 +9,12 @@ import { Component, Input, ViewEncapsulation } from '@angular/core';
 export class ChangeLayoutDialogComponent {
   @Input() shLayouts: any;
   @Input() RouterId: any;
-  
+  @Output() messageEvent = new EventEmitter< string>();
+  constructor() { }
+  ngOnInit(): void {}
+  closeDialog()
+  { 
+    this.messageEvent.emit("ok");
+   
+  }
 }

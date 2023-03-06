@@ -8,7 +8,7 @@
     <p-table >
         <ng-template pTemplate="header">
         <div class="form-check">
-            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked >
             <label class="form-check-label" for="exampleRadios1">
               Layout 1 of {{RouterId}}
             </label>
@@ -50,7 +50,7 @@
     <!-- close -->
     <ng-template pTemplate="footer">
         <button icon="pi pi-times" class="btn conBtn mt-3" 
-            label="Close" (click)="shLayouts = false;">Confirm</button><button icon="pi pi-times" class="btn btn-danger mt-3" (click)="shLayouts = false;"
+            label="Close" (click)="shLayouts = false;closeDialog()">Confirm</button><button icon="pi pi-times" class="btn btn-danger mt-3" (click)="shLayouts = false;"
             label="Close">Close</button>
     </ng-template>
     <!-- closeDialog() -->

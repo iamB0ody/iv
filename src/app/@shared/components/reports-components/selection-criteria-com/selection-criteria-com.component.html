@@ -29,8 +29,7 @@
                     [HelperDetail]="HelperDetail" (messageEvent)="displayMessage($event)"></helper-dialog> 
                     <multiple-helper-dialog *ngIf="MultipleHelperDetail" [MultipleHelperTableContent]="MultipleHelperTableContent"
                     [MultipleHelperDetail]="MultipleHelperDetail " [criteriaField]="criteriaField " (messageEvent)="displayMessage($event)"></multiple-helper-dialog>
-                    <app-change-layout-dialog *ngIf="shLayouts" [shLayouts]="shLayouts" [RouterId]="RouterId">
-
+                    <app-change-layout-dialog *ngIf="shLayouts" [shLayouts]="shLayouts" [RouterId]="RouterId"  (messageEvent)="changeLayout($event)">
                     </app-change-layout-dialog>
             </div>
         </div>
