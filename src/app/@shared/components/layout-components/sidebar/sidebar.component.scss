@@ -1,11 +1,13 @@
 @import "../../../../../styles.scss";
-
+@keyframes mymove {
+  50% {transform: rotate(360deg);}
+}
 .logo {
   height: 85px;
   width: 73px;
   margin-top: 25px;
+  // animation: mymove 6s ;
 }
-
 .sName {
   font-family: 'Montserrat', sans-serif;
   font-style: normal;

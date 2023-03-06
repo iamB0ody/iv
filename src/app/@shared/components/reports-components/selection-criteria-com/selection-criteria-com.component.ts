@@ -465,6 +465,6 @@ export class SelectionCriteriaComComponent implements OnInit {
   }
   changeLayout(ev:any)
   {
-   
+   alert(ev)
   }
 }
