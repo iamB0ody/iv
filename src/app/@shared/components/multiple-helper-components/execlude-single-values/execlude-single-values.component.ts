@@ -40,8 +40,9 @@ export class ExecludeSingleValuesComponent{
   MultipleHelperDetail: any;
   MultipleHelperTableContent: any;
   @Input() criteriaField: any;
-  selectedVal:any;
 displayedTable:any[]=[];
+selectedVal:any;
+toDeleteArr1:any[]=[]
   constructor(private userService:UserService,
     private activatedRoute: ActivatedRoute,
     private reportService: ReportService,
@@ -329,7 +330,8 @@ displayedTable:any[]=[];
     
 
 if (this.displayedTable.indexOf("Exclude " +unique[0].Low) === -1 && unique[0].Low!='') 
-this.displayedTable.push("Exclude " + unique[0].Low)
+{this.displayedTable.push("Exclude " +unique[0].Low)
+this.toDeleteArr1.push(unique[0].Low)
  // this.isDataLoaded = true
     if (unique.length > 0) {
       unique.map(data => {
@@ -358,6 +360,7 @@ this.displayedTable.push("Exclude " + unique[0].Low)
     //   });
    let item=Object.values(unique[0])
   // for (let i = 0; i <item.length; i++) {
+    
     let low;
     if (item[5])
       low = item[5]
@@ -369,13 +372,16 @@ this.displayedTable.push("Exclude " + unique[0].Low)
       type: item[2],
       HelpFullLeft:item[3],
       Indicator:1,
-      Low: low,
+      Low: low
+      ,
       High: []
     }
     this.reportService.selectionCriteria.push(obj)
   // }
-    unique=[]
+    unique=[];
+    this.FormatedData=[];
     this.selectedVal.target.value=''
+  
     } else {
       // this.isDataLoaded = false
       this.messageService.add({ severity: 'error', summary: 'Add Values', detail: 'Select Your Values Please' });
@@ -412,6 +418,9 @@ this.displayedTable.push("Exclude " + unique[0].Low)
     });
     // go to result  this.router.navigate([`result/${this.RouterId}`])
   }
+else
+this.selectedVal.target.value=''
+}
   displayMessage(ev: any) {    
     this.ChangeInput2('input',this.variantSide,this.variantEvent,this.variantItem,ev)
     // this.HelperDetail.technicalName=ev
@@ -424,8 +433,8 @@ this.displayedTable.push("Exclude " + unique[0].Low)
     if (Side == 'From') {
       // item.Indicator = 9
       item.Low =[val] 
-      this.selectedVal=event;
       event.target.value= val
+    this.selectedVal=event;
       this.FormatedData.push(item)
       // check input type from left side or from right side to update or add new 
       this.FormatedData.forEach((element: any, index: any) => {
@@ -471,6 +480,12 @@ this.displayedTable.push("Exclude " + unique[0].Low)
   }
   removeItem(id:any)
   {
-this.displayedTable.splice(id,1);  } 
+this.displayedTable.splice(id,1); 
+for(let i=0;i<this.reportService.selectionCriteria.length;i++)
+{
+  if(this.reportService.selectionCriteria[i].Low==this.toDeleteArr1[id] && this.reportService.selectionCriteria[i].High.length==0 )
+  this.reportService.selectionCriteria.splice(i,1); 
+}
+} 
   
 }

@@ -44,6 +44,8 @@ displayedTable:any[]=[];
 displayedTable2:any[]=[];
 selectedHigh:any;
 selectedLow:any;
+toDeleteArr1:any[]=[];
+toDeleteArr2:any[]=[]
   constructor(private userService:UserService,
     private activatedRoute: ActivatedRoute,
     private reportService: ReportService,
@@ -331,9 +333,12 @@ selectedLow:any;
     
 
     if (this.displayedTable.indexOf("From " +unique[0].Low) === -1 && unique[0].Low!='') 
+    {
     this.displayedTable.push("From " + unique[0].Low)
+    this.toDeleteArr1.push(unique[0].Low)}
     if (this.displayedTable2.indexOf(" To " +unique[0].High) === -1) 
-        this.displayedTable2.push(" To " + unique[0].High)
+       {this.displayedTable2.push(" To " + unique[0].High);
+       this.toDeleteArr2.push(unique[0].High)} 
  // this.isDataLoaded = true
     if (unique.length > 0) {
       unique.map(data => {
@@ -376,20 +381,18 @@ selectedLow:any;
     else
       low = []
   // -------------------indicator---------------------
-      if(high.length==0 &&low.length > 0)
-      {indicator=0;}
-     else if(high.length > 0 &&low.length > 0)
-      {indicator=2;}
-     else if(high.length >0 &&low.length == 0)
-      {indicator=10;}
-    //  else if(high.length==0 &&low.length > 0)
-    //   {indicator=0;}
+      if(high.length==0 && low.length > 0)
+      {indicator=1;}
+     else if(high.length > 0 && low.length > 0)
+      {indicator=3 ;}
+     else if(high.length > 0 && low.length == 0)
+      {indicator=8;}
     let obj = {
       fieldName: item[0],
       technicalName: item[1],
       type: item[2],
       HelpFullLeft:item[3],
-      Indicator:1,
+      Indicator:indicator,
       Low: low
       ,
       High:high
@@ -496,6 +499,12 @@ selectedLow:any;
   }
   removeItem(id:any)
   {
-this.displayedTable.splice(id,1);  } 
+this.displayedTable.splice(id,1); 
+for(let i=0;i<this.reportService.selectionCriteria.length;i++)
+{
+  if(this.reportService.selectionCriteria[i].Low==this.toDeleteArr1[id] && this.reportService.selectionCriteria[i].High==this.toDeleteArr2[id] )
+  this.reportService.selectionCriteria.splice(i,1); 
+}
+}  
   
 }

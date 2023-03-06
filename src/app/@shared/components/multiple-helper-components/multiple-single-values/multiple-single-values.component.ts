@@ -44,6 +44,7 @@ export class MultipleSingleValuesComponent {
   @Input() criteriaField: any;
 displayedTable:any[]=[];
 selectedVal:any;
+toDeleteArr1:any[]=[]
   constructor(private userService:UserService,
     private activatedRoute: ActivatedRoute,
     private reportService: ReportService,
@@ -332,6 +333,7 @@ selectedVal:any;
 
 if (this.displayedTable.indexOf("Include " +unique[0].Low) === -1 && unique[0].Low!='') 
 {this.displayedTable.push("Include " +unique[0].Low)
+this.toDeleteArr1.push(unique[0].Low)
  // this.isDataLoaded = true
     if (unique.length > 0) {
       unique.map(data => {
@@ -481,6 +483,11 @@ this.selectedVal.target.value=''
   removeItem(id:any)
   {
 this.displayedTable.splice(id,1); 
+for(let i=0;i<this.reportService.selectionCriteria.length;i++)
+{
+  if(this.reportService.selectionCriteria[i].Low==this.toDeleteArr1[id] && this.reportService.selectionCriteria[i].High.length==0 )
+  this.reportService.selectionCriteria.splice(i,1); 
+}
 } 
   
 }
