@@ -1,0 +1,133 @@
+// primng design
+.p-fluid .p-inputtext {
+    height: 26px;
+}
+
+.p-datatable .p-datatable-thead>tr>th {
+    font-weight: 500;
+
+}
+
+.tableHeader {
+    color: #495057;
+}
+
+.tableHeader:hover {
+    color: #190d50;
+    font-weight: 700;
+}
+
+.SelectTableHeader {
+    height: 46px;
+    padding: 10px 7px;
+    border-radius: 8px;
+
+    .SelectButton {
+        float: right;
+        background-color: #190d50;
+        color: white;
+        height: 30px !important;
+        margin-top: -2px !important;
+    }
+
+    .DangerSelectButton {
+        float: right;
+        background-color: #c82333;
+        color: white;
+        height: 30px !important;
+        margin-top: -2px !important;
+    }
+
+}
+
+.SelectTableHeader:hover {
+    box-shadow: 1px 0px 10px 0px darkgrey;
+}
+
+.p-datatable .p-datatable-tbody>tr {
+    background-color: #F3F3F5 !important;
+    cursor: pointer;
+}
+
+.p-datatable {
+    .p-datatable-tbody>tr>td {
+        text-align: left;
+        border: 1px solid white;
+        border-width: 8px 0 1px 0;
+        padding: 10px 1rem;
+    }
+
+    .p-datatable-thead {
+        tr>th {
+            padding: 16px 0px 16px 15px !important
+        }
+    }
+}
+
+.p-datatable .p-datatable-thead>tr>th {
+    border-width: 0px 0 0px 0;
+    /* font-weight: 600; */
+    position: relative;
+    color: #495057;
+    background: #DDDDE1;
+    transition: box-shadow 0.2s;
+}
+
+.HelperCloseSearch {
+    font-size: 15px;
+    padding: 0px 8px 0 7px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 20px;
+    right: 12px;
+    top: 12px;
+    height: 20px !important;
+    border-radius: 50%;
+    transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+    background-color: rgb(239 39 39 / 75%);
+
+}
+
+.p-column-filter-clear-button {
+    // display: none !important;
+    visibility: hidden !important
+}
+.p-datatable .p-datatable-tbody>tr {
+    background-color: #F3F3F5 !important;
+}
+
+.p-datatable {
+    .p-datatable-tbody>tr>td {
+        text-align: left;
+        border: 1px solid white;
+        border-width: 8px 0 1px 0;
+        padding: 10px 1rem;
+    }
+
+    .p-datatable-thead {
+        tr>th {
+            padding: 6px 0px 6px 15px !important
+        }
+    }
+}
+
+.p-datatable .p-datatable-thead>tr>th {
+    border-width: 0px 0 0px 0;
+    /* font-weight: 600; */
+    color: #495057;
+    background: #DDDDE1;
+    transition: box-shadow 0.2s;
+}
+.form-check
+{
+    margin-top:20px;
+    margin-left:20px;
+}
+// end primng design  #DDDDE1;
+.conBtn
+{
+    background-color:#1E1838!important;
+    color:#fff!important;
+}

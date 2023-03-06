@@ -45,6 +45,7 @@ export class SelectionCriteriaComComponent implements OnInit {
   criteriaField:any;
   count1:number=0;
   count2:number=0;
+  shLayouts:boolean=false;
   constructor(private userService:UserService,
     private activatedRoute: ActivatedRoute,
     private reportService: ReportService,
@@ -457,5 +458,9 @@ export class SelectionCriteriaComComponent implements OnInit {
   
   }
   
-  
+  // -----------------------------------------show layout dialog--------------------------------
+  showLayoutDialog()
+  {
+    this.shLayouts=!this.shLayouts;
+  }
 }

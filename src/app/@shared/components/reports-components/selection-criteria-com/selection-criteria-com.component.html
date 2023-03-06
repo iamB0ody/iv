@@ -5,7 +5,7 @@
         <!-- functions on report start-->
         <div class="row">
             <div class="d-flex col-12 justify-content-end">
-                <button type="button" class="btn btn-light btn-md btn-outline-dark  selectButton"><i
+                <button type="button" class="btn btn-light btn-md btn-outline-dark  selectButton" (click)="showLayoutDialog()"><i
                         style="margin: 0 8px 0px -8px" class="fa-solid fa-file-medical"></i>
                     <span class="SelectionDisplayNone"> select report layout</span></button>
                    
@@ -29,6 +29,9 @@
                     [HelperDetail]="HelperDetail" (messageEvent)="displayMessage($event)"></helper-dialog> 
                     <multiple-helper-dialog *ngIf="MultipleHelperDetail" [MultipleHelperTableContent]="MultipleHelperTableContent"
                     [MultipleHelperDetail]="MultipleHelperDetail " [criteriaField]="criteriaField " (messageEvent)="displayMessage($event)"></multiple-helper-dialog>
+                    <app-change-layout-dialog *ngIf="shLayouts" [shLayouts]="shLayouts" [RouterId]="RouterId">
+
+                    </app-change-layout-dialog>
             </div>
         </div>
      <!-- functions on report end-->

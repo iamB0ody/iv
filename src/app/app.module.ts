@@ -84,6 +84,7 @@ import { MultipleRangesComponent } from './@shared/components/multiple-helper-co
 import { ExecludeRangesComponent } from './@shared/components/multiple-helper-components/execlude-ranges/execlude-ranges.component';
 import { ExecludeSingleValuesComponent } from './@shared/components/multiple-helper-components/execlude-single-values/execlude-single-values.component';
 import { ZfrActComponent } from './@shared/components/reports-components/spcial-reports/zfr-act/zfr-act.component';
+import { ChangeLayoutDialogComponent } from './@shared/components/reports-components/change-layout-dialog/change-layout-dialog.component';
 
 // import { CalendarModule } from 'primeng/calendar';
 
@@ -114,7 +115,7 @@ import { ZfrActComponent } from './@shared/components/reports-components/spcial-
     NotificationsComponent,
     SelectedNotificationComponent, AdRemoveAuthorizeDialogComponent,
     AdminReasonDialogComponent, AdminRemoveAuthorizeComponent,
-    HelperDialogComponent, AdminNotesDialogComponent, AdAddAuthorizeDialogComponent, MultipleHelperDialogComponent, MultipleSingleValuesComponent, MultipleRangesComponent, ExecludeRangesComponent, ExecludeSingleValuesComponent, ZfrActComponent
+    HelperDialogComponent, AdminNotesDialogComponent, AdAddAuthorizeDialogComponent, MultipleHelperDialogComponent, MultipleSingleValuesComponent, MultipleRangesComponent, ExecludeRangesComponent, ExecludeSingleValuesComponent, ZfrActComponent, ChangeLayoutDialogComponent
 
   ],
   imports: [TabViewModule,MatNativeDateModule,ClipboardModule,MatInputModule, MatSelectModule, MatPaginatorModule, MatTableModule, MatFormFieldModule, MatDialogModule, MatListModule, MatSidenavModule, MatIconModule, ReactiveFormsModule, DxLoadIndicatorModule,

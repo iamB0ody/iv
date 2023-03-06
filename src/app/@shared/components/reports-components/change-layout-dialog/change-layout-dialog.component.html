@@ -1,0 +1,58 @@
+<p-dialog [closable]="false" [(visible)]="shLayouts" [modal]="true" [style]="{width: '40vw'}"
+    [maximizable]="true" [baseZIndex]="10000" [draggable]="true" [resizable]="true">
+    <!-- digram header  -->
+    <p-header>Select Layout of {{RouterId}}</p-header>
+    <!--/ digram header  -->
+
+    <!-- digram Content -->
+    <p-table >
+        <ng-template pTemplate="header">
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+            <label class="form-check-label" for="exampleRadios1">
+              Layout 1 of {{RouterId}}
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+            <label class="form-check-label" for="exampleRadios1">
+              Layout 2 of {{RouterId}}
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+            <label class="form-check-label" for="exampleRadios1">
+              Layout 3 of {{RouterId}}
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+            <label class="form-check-label" for="exampleRadios1">
+              Layout 4 of {{RouterId}}
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+            <label class="form-check-label" for="exampleRadios1">
+              Layout 5 of {{RouterId}}
+            </label>
+          </div>
+          <div class="form-check mb-4">
+            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+            <label class="form-check-label" for="exampleRadios1">
+              Layout 6 of {{RouterId}}
+            </label>
+          </div>
+         
+          </ng-template>
+          
+    </p-table>
+    <!-- close -->
+    <ng-template pTemplate="footer">
+        <button icon="pi pi-times" class="btn conBtn mt-3" 
+            label="Close" (click)="shLayouts = false;">Confirm</button><button icon="pi pi-times" class="btn btn-danger mt-3" (click)="shLayouts = false;"
+            label="Close">Close</button>
+    </ng-template>
+    <!-- closeDialog() -->
+    <!--/ close -->
+</p-dialog>
