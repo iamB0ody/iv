@@ -344,6 +344,22 @@ export class SelectionCriteriaComComponent implements OnInit {
       {
        unique.push(this.reportService.selectionCriteria[i])
       }
+      for(let j=0;j < unique.length;j++)
+      {let len=unique[j].Low[0].length-1;
+       if(unique[j].Low[0][0]==='*' && unique[j].Low[0][len]==='*')
+      {unique[j].Indicator=6;
+        unique[j].Low[0]=unique[j].Low[0].substring(1);
+        unique[j].Low[0]=unique[j].Low[0].substring(0,len-1);
+      }
+else if(unique[j].Low[0][0]==='*')
+       {unique[j].Indicator=5;
+        unique[j].Low[0]=unique[j].Low[0].substring(1);}
+       else if(unique[j].Low[0][len]==='*')
+       {
+        unique[j].Indicator=4;
+        unique[j].Low[0]=unique[j].Low[0].substring(0,len);}
+      
+      }
       this.reportService.executeReport(unique, 1, 10000, this.RouterId).subscribe((data: any) => {
         this.isDataLoaded = false
         this.reportService.reportData=data;

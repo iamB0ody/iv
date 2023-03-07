@@ -55,6 +55,7 @@ export class SidebarComponent implements OnInit {
 
   }
   gefavorite() {
+    this.getFavUserReports()
     this.router.navigate(['/favorite-reports'])
   }
   getFavUserReports() {
