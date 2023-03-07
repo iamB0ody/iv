@@ -1,31 +1,39 @@
 <div class="container-fluid p-2" *ngIf="isLoaded">
     <p-toast></p-toast>
     <div class="content">
-       <h5>Selection Criteria OF {{RouterId}}</h5>
-        <!-- functions on report start-->
+      
         <div class="row">
             <!-- (click)="showLayoutDialog()" -->
-            <div class="d-flex col-12 justify-content-end">
+            <div class="d-flex col-12 justify-content-between">
+                 <!-- <h5>Selection Criteria OF {{RouterId}}</h5> -->
+       <div class="d-flex">
+      <a href="javaScript:void" [routerLink]="['/all-reports']" class="Back ">
+            <i class="fa-solid fa-arrow-left "></i> 
+        </a>
+         <span class="mt-1">Selection Criteria OF {{RouterId}}</span></div>
+        <!-- functions on report start-->
+               <div>
                 <button type="button" class="btn btn-light btn-md btn-outline-dark  selectButton" (click)="showLayoutDialog()"><i
-                        style="margin: 0 8px 0px -8px" class="fa-solid fa-file-medical"></i>
-                    <span class="SelectionDisplayNone"> select report layout</span></button>
-                   
-                <button type="button" class="btn btn-primary excuteButton" (click)="ExcuteAndGetReportResult()">
-                    <i style="margin: 0 8px 0px -8px" class="fa-solid fa-play" *ngIf="isDataLoaded == false"></i>
-                    <span class="SelectionDisplayNone" *ngIf="isDataLoaded == false">
-                        excute report
-                    </span>
-                    <div *ngIf="isDataLoaded == true" class="spinner-grow" role="status" style="margin-top: -6px;">
-                        <span class="visually-hidden">Loading...</span>
-                    </div>
-                </button>
-                <i class="fa-solid fa-circle-check fs-2 mt-1 succesBtn" *ngIf="count2 > 0 || count1 > 0"></i>
-                <button type="button" class="btn  btn-outline-danger  cancelButton" [routerLink]="['/all-reports']"><i style="margin: 0 8px 0px -8px"
-                        class="fa-solid fa-xmark"></i>
-                    <span class="SelectionDisplayNone" 
-                        routerLinkActive="router-link-active">
-                        cancel</span>
-                </button>
+                    style="margin: 0 8px 0px -8px" class="fa-solid fa-file-medical"></i>
+                <span class="SelectionDisplayNone"> select report layout</span></button>
+               
+            <button type="button" class="btn btn-primary excuteButton" (click)="ExcuteAndGetReportResult()">
+                <i style="margin: 0 8px 0px -8px" class="fa-solid fa-play" *ngIf="isDataLoaded == false"></i>
+                <span class="SelectionDisplayNone" *ngIf="isDataLoaded == false">
+                    excute report
+                </span>
+                <div *ngIf="isDataLoaded == true" class="spinner-grow" role="status" style="margin-top: -6px;">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </button>
+            <i class="fa-solid fa-circle-check fs-2 mt-1 succesBtn" *ngIf="count2 > 0 || count1 > 0"></i>
+            <button type="button" class="btn  btn-outline-danger  cancelButton" [routerLink]="['/all-reports']"><i style="margin: 0 8px 0px -8px"
+                    class="fa-solid fa-xmark"></i>
+                <span class="SelectionDisplayNone" 
+                    routerLinkActive="router-link-active">
+                    cancel</span>
+            </button>
+               </div>
             <helper-dialog *ngIf="HelperDetail" [HelperTableContent]="HelperTableContent"
                     [HelperDetail]="HelperDetail" (messageEvent)="displayMessage($event)"></helper-dialog> 
                     <multiple-helper-dialog *ngIf="MultipleHelperDetail" [MultipleHelperTableContent]="MultipleHelperTableContent"
