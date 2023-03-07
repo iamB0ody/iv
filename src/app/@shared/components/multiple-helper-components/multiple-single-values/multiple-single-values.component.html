@@ -3,13 +3,12 @@
     <div class="content">
         <helper-dialog *ngIf="HelperDetail" [HelperTableContent]="HelperTableContent"
         [HelperDetail]="HelperDetail" (messageEvent)="displayMessage($event)"></helper-dialog> 
-        <div id="form-container" style="padding-top: 0%;">
+        <div id="form-container">
             <ng-container [formGroup]="selectionForm">
                 <!-- searchCriatrya Loop -->
                 <ng-container *ngFor="let item of allVariables;let i=index">
-                    <ng-container >
                     <div class="row" >
-                        <div class=" col-sm-11 col-md-7">
+                        <div class=" col-sm-11 col-md-7 ">
                             <div class="row" >
                                 <!-- item Name -->
                                 <div class="col-5 col-sm-12 col-md-5 mt-1">
@@ -24,12 +23,12 @@
                                     <mat-form-field class="example-full-width" *ngIf="item.type == 0  && item.fieldName != 'Month' && item.fieldName != 'Year'">
                                         <input  style="border-radius:none" type="text" placeholder="{{'From'}}"
                                             aria-label="'From'" matInput [matAutocomplete]="auto1" class="InputFRomTo"
-                                           (click)="GetHistory(item,'From',$event)" (change)="ChangeInput('input','From',$event,item)" />
+                                           (click)="GetHistory(item,'From',$event)" (change)="ChangeInput('input','From',$event,item)" >
                                         <mat-autocomplete #auto1="matAutocomplete" [class]="'blue-bg'">
-                                            <!-- <mat-option *ngFor="let option of simpleOptions" [value]="option.value"
+                                            <mat-option *ngFor="let option of simpleOptions" [value]="option.value"
                                                 (click)="ChangeInput('delected','From',option,item)">
                                                 {{ option.value }}
-                                            </mat-option> -->
+                                            </mat-option>
                                         </mat-autocomplete>
                                     </mat-form-field>
                                     <!-- /if selection is not Date -->
@@ -93,11 +92,9 @@
                             <!--/ right From -->
                         </div>
                        
-                    </div></ng-container>
+                    </div>
                     <br>
-               </ng-container>
-               <div>
-               
+               </ng-container><div>
     <ul>
         <li *ngFor="let item of displayedTable ; let i=index">{{item}}<span class="close" (click)="removeItem(i)">&times;</span></li>
         

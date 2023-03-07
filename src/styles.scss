@@ -213,5 +213,8 @@ $primaryColor: #1E1838;
     stroke-dashoffset: 0;
   }
 }
-
+.cdk-overlay-container
+{
+//  z-index:12000!important;
+}
 // end Loader styles
