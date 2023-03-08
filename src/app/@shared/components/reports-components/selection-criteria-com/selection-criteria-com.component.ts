@@ -82,23 +82,12 @@ export class SelectionCriteriaComComponent implements OnInit {
     this.isLoaded = true;
     this.RouterId = this.activatedRoute.snapshot.paramMap.get('id');
   }
-  // init genral data
-
-
-
-  // input select change and formated data for simple api
   ChangeInput(type: string, Side: any, event: any, item: any) {
     if (Side == 'From') {
       item.Indicator = 2;
       item.Low = [type == 'input' ? event.target.value : event.value]
       this.FormatedData.push(item)
       this.count1=this.FormatedData.length;
-      // check input type from left side or from right side to update or add new 
-      this.FormatedData.forEach((element: any, index: any) => {
-        // if (element.HelpFullLeft === true && index) {
-        // }
-      });
-      // end check input type from left side or from right side to update or add new 
     }
      else {
       item.Indicator = 10
@@ -223,14 +212,11 @@ export class SelectionCriteriaComComponent implements OnInit {
       this.HelperTableContent = data
       this.reportService.help=true;
       this.HelperDetail.DialogModule = this.reportService.help
-    // this.MultipleHelperDetail.DialogModule =false
     }, (err: any) => {
       this.isDataLoaded = false
       this.HelperTableContent = []
       this.HelperDetail.DialogModule = false
-    });
-    
-    
+    });  
   }
   ////////////////////////////////multiple help////////////////////////////////////////
   multipleHelper(e: any) {
@@ -238,16 +224,6 @@ export class SelectionCriteriaComComponent implements OnInit {
     this.MultipleHelperDetail = e;
     localStorage.setItem('criteriaField',e.fieldName);
     this.isDataLoaded = true;
-    // this.reportService.GetHelpButton(this.MultipleHelperDetail.fieldName).subscribe((data) => {
-      
-    //   // this.HelperDetail.DialogModule=false
-    // }, (err: any) => {
-    //   this.isDataLoaded = false
-    //   this.MultipleHelperTableContent = []
-    //   this.MultipleHelperDetail.DialogModule = false
-    // });
-    
-    
     this.isDataLoaded = false;
      this.MultipleHelperTableContent = []
       this.MultipleHelperDetail.DialogModule = true
@@ -269,16 +245,11 @@ export class SelectionCriteriaComComponent implements OnInit {
           this.datesArr.push(this.allVariables[i].fieldName+"From")
           this.datesArr.push(this.allVariables[i].fieldName+"To")
         }
-
       }
-     
       this.selectionForm=new FormGroup([])
-    
       this.datesArr.forEach(x=>{
-     
         this.selectionForm.addControl(x,new FormControl())
      });
-    
     }
     , (err: any) => {
       if (Number(err.status) === 401 || err.statusText == 'Unauthorized') {
@@ -335,29 +306,28 @@ export class SelectionCriteriaComComponent implements OnInit {
         data.Indicator = (data.Low && !data.High) ? 0 : data.Indicator // sEqual, //0
         data.Low = data.Low ? data.Low : []
         data.High = data.High ? data.High : []
-      })
-      // console.log("service"+Object.values(this.reportService.selectionCriteria[0]));
-      // console.log("service"+Object.values(this.reportService.selectionCriteria[1]));
-      // console.log("service"+Object.values(this.reportService.selectionCriteria[2]));
-      
-      for(let i=0;i<this.reportService.selectionCriteria.length;i++)
+      })      
+      for(let i=0;i<this.reportService?.selectionCriteria.length;i++)
       {
        unique.push(this.reportService.selectionCriteria[i])
       }
-      for(let j=0;j < unique.length;j++)
-      {let len=unique[j].Low[0].length-1;
-       if(unique[j].Low[0][0]==='*' && unique[j].Low[0][len]==='*')
+      for(let j=0;j < unique?.length;j++)
+      {let len=unique[j]?.Low[0]?.length-1;
+       if(len > 0)
+       {
+        if(unique[j]?.Low[0][0]==='*' && unique[j]?.Low[0][len]==='*')
       {unique[j].Indicator=6;
         unique[j].Low[0]=unique[j].Low[0].substring(1);
         unique[j].Low[0]=unique[j].Low[0].substring(0,len-1);
       }
-else if(unique[j].Low[0][0]==='*')
+      else if(unique[j]?.Low[0][0]==='*')
        {unique[j].Indicator=5;
         unique[j].Low[0]=unique[j].Low[0].substring(1);}
-       else if(unique[j].Low[0][len]==='*')
+       else if(unique[j]?.Low[0][len]==='*')
        {
         unique[j].Indicator=4;
         unique[j].Low[0]=unique[j].Low[0].substring(0,len);}
+       }
       
       }
       this.reportService.executeReport(unique, 1, 10000, this.RouterId).subscribe((data: any) => {
@@ -382,9 +352,7 @@ else if(unique[j].Low[0][0]==='*')
       this.isDataLoaded = false
       this.messageService.add({ severity: 'error', summary: 'Please Select Criteria', detail: 'Select Your Search Criteria Please' });
     }
-
-
-    // post history hinout data
+   // post history hinout data
     unique.map((data: any) => {    
       if(data.Low[0])
       this.historyFormatedData.push(
