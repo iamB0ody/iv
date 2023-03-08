@@ -13,10 +13,10 @@
          <span class="mt-1">Selection Criteria OF {{RouterId}}</span></div>
         <!-- functions on report start-->
                <div>
-                <button type="button" class="btn btn-light btn-md btn-outline-dark  selectButton" (click)="showLayoutDialog()"><i
+                <button type="button" class="btn btn-light btn-md btn-outline-dark  selectButton" ><i
                     style="margin: 0 8px 0px -8px" class="fa-solid fa-file-medical"></i>
                 <span class="SelectionDisplayNone"> select report layout</span></button>
-               
+                <!-- (click)="showLayoutDialog()" -->
             <button type="button" class="btn btn-primary excuteButton" (click)="ExcuteAndGetReportResult()">
                 <i style="margin: 0 8px 0px -8px" class="fa-solid fa-play" *ngIf="isDataLoaded == false"></i>
                 <span class="SelectionDisplayNone" *ngIf="isDataLoaded == false">
